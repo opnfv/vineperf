@@ -200,6 +200,10 @@ class TestCase(object):
         if S.getValue('LLC_ALLOCATION'):
             self._rmd = rmd.CacheAllocator()
 
+        # If running in k8s mode.
+        # This value is set in main vsperf file
+        self._k8s = S.getValue('K8S')
+
     def run_initialize(self):
         """ Prepare test execution environment
         """
@@ -218,12 +222,11 @@ class TestCase(object):
             len(self._step_vnf_list))
 
         self._vnf_list = self._vnf_ctl.get_vnfs()
-
-        self._pod_ctl = component_factory.create_pod(
-            self.deployment,
-            loader.get_pod_class())
-
-        self._pod_list = self._pod_ctl.get_pods()
+        if self._k8s:
+            self._pod_ctl = component_factory.create_pod(
+                self.deployment,
+                loader.get_pod_class())
+            self._pod_list = self._pod_ctl.get_pods()
 
         # verify enough hugepages are free to run the testcase
         if not self._check_for_enough_hugepages():
