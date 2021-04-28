@@ -728,6 +728,7 @@ def main():
         settings.setValue('K8S', False)
 
     if args['openstack']:
+        settings.setValue('OPENSTACK', True)
         result = osdt.deploy_testvnf()
         if result:
             _LOGGER.info('TestVNF successfully deployed on Openstack')
@@ -735,6 +736,9 @@ def main():
         else:
             _LOGGER.error('Failed to deploy TestVNF in Openstac')
             sys.exit(1)
+    else:
+        settings.setValue('OPENSTACK', False)
+
     # update paths to trafficgens if required
     if settings.getValue('mode') == 'trafficgen':
         functions.settings_update_paths()
