@@ -47,6 +47,7 @@ from tools import functions
 from tools.pkt_gen import trafficgen
 from tools.opnfvdashboard import opnfvdashboard
 from tools.os_deploy_tgen import osdt
+from tools.report import cloudinfo
 sys.dont_write_bytecode = True
 
 VERBOSITY_LEVELS = {
@@ -728,6 +729,7 @@ def main():
         settings.setValue('K8S', False)
 
     if args['openstack']:
+        settings.setValue('OPENSTACK', True)
         result = osdt.deploy_testvnf()
         if result:
             _LOGGER.info('TestVNF successfully deployed on Openstack')
@@ -735,6 +737,9 @@ def main():
         else:
             _LOGGER.error('Failed to deploy TestVNF in Openstac')
             sys.exit(1)
+    else:
+        settings.setValue('OPENSTACK', False)
+
     # update paths to trafficgens if required
     if settings.getValue('mode') == 'trafficgen':
         functions.settings_update_paths()
@@ -878,6 +883,9 @@ def main():
 
         suite = unittest.TestSuite()
         settings_snapshot = copy.deepcopy(settings.__dict__)
+
+        if settings.getValue('OPENSTACK') or settings.getValue('K8S'):
+            cloudinfo.save_cloud_info()
 
         for i, cfg in enumerate(selected_tests):
             settings.setValue('_TEST_INDEX', i)
