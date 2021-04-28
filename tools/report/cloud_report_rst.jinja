@@ -1,0 +1,49 @@
+{#
+ Copyright (c) 2016-2017 Intel corporation.
+
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Apache License, Version 2.0
+ which accompanies this distribution, and is available at
+ http://www.apache.org/licenses/LICENSE-2.0
+#}
+
+Test ID: {{ tests[0].ID }}
+--------------------------
+
+Test Environment
+~~~~~~~~~~~~~~~~
+Below is the environment that the test was performed in:
+
+* CLOUD: {{tests[0].env.os}}
+
+Below are test details:
+
+* Test ID: {{ "%s"|format(tests[0].id) }}
+* Description: {{ "%s"|format(tests[0].conf['Description']) }}
+* Deployment: {{ "%s"|format(tests[0].deployment) }}
+* Traffic type: {{ "%s"|format(tests[0].result['type']) }}
+* Bidirectional : {{ "%s"|format(tests[0].conf['bidir']) }}
+{%- if tests[0].result['tunnel_type'] %}
+* Tunnel type: {{ "%s"|format(tests[0].result['tunnel_type']) }}
+{%- endif %}
+{% for test in tests %}
+Test results for packet size: {{ "%s"|format(test.result['packet_size']) }}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A detailed summary of the main results is outlined below.
+
+Results/Metrics Collected
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following are the metrics obtained during this test:
+
+========================== ==================================
+        Metric                          Result
+========================== ==================================
+{%- for item, value in test.result.items() %}
+{{ "%-30s %30s"|format(item,value)}}
+{%- endfor %}
+========================== ==================================
+
+.. There must be blank lines around to ensure correct formatting.
+
+
