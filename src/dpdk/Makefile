@@ -54,7 +54,7 @@ ifeq ($(DPDK_TAG_MAJOR),v2)
 else
     DPDK_TARGET = x86_64-native-linuxapp-gcc
     CONFIG_FILE_BASE = $(WORK_DIR)/config/common_base
-    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/common_linuxapp
+    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/common_linux
 endif
 endif
 

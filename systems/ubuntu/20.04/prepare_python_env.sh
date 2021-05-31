@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Prepare Python 3 environment for vsperf execution
+# Prepare Python environment for vsperf execution on Ubuntu 14.04 systems
 #
-# Copyright 2015-2017 OPNFV
+# Copyright 2015-2017 OPNFV, Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ if [ -d "$VSPERFENV_DIR" ] ; then
     exit
 fi
 
-scl enable rh-python36 "
-virtualenv "$VSPERFENV_DIR" --python /opt/rh/rh-python36/root/usr/bin/python3
+# enable virtual environment in a subshell, so QEMU build can use python 2.7
+
+(virtualenv "$VSPERFENV_DIR" --python /usr/bin/python3
 source "$VSPERFENV_DIR"/bin/activate
 pip install -U pip
-pip install -r ../requirements.txt
-"
+pip install -r ../requirements.txt)

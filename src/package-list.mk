@@ -13,15 +13,15 @@
 # dpdk section
 # DPDK_URL ?= git://dpdk.org/dpdk
 DPDK_URL ?= http://dpdk.org/git/dpdk
-DPDK_TAG ?= v18.11-rc2
+DPDK_TAG ?= v20.05
 
 # OVS section
 OVS_URL ?= https://github.com/openvswitch/ovs
-OVS_TAG ?= v2.12.0
+OVS_TAG ?= v2.14.0
 
 # VPP section
 VPP_URL ?= https://git.fd.io/vpp
-VPP_TAG ?= v19.08.1
+VPP_TAG ?= v21.01
 
 # QEMU section
 QEMU_URL ?= https://github.com/qemu/qemu.git

@@ -78,6 +78,7 @@ sudo yum -y install centos-release-scl-rh
 yum -y install $(echo "
 rh-python36
 rh-python36-python-tkinter
+python3-setuptools
 git-review
 " | grep -v ^#)
 # prevent ovs vanilla from building from source due to kernel incompatibilities

@@ -16,3 +16,15 @@ or with password less sudo access.
 If you want to use vsperf in trafficgen-mode ONLY, then add a parameter.
 
 ./build_base_machine.sh trafficgen
+
+
+Newer Kernel Versions:
+----------------------
+
+May need following changes:
+
+1. In src/l2fwd/l2fwd.c, comment out the line with xmit_more (193).
+
+2. In src/qemu/Makefile, In line 30, we MAY have to add the following:
+   --disable-werror --python='/usr/bin/python3'
+   
