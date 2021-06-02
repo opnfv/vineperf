@@ -1,0 +1,32 @@
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: userspace-vpp-net
+spec:
+  config: '{
+        "cniVersion": "0.3.1",
+        "type": "userspace",
+        "name": "userspace-vpp-net",
+        "kubeconfig": "/etc/cni/net.d/multus.d/multus.kubeconfig",
+        "logFile": "/var/log/userspace-vpp-net-1-cni.log",
+        "logLevel": "debug",
+        "host": {
+                "engine": "vpp",
+                "iftype": "memif",
+                "netType": "interface",
+                "memif": {
+                        "role": "master",
+                        "mode": "ethernet"
+                }
+        },
+        "container": {
+                "engine": "vpp",
+                "iftype": "memif",
+                "netType": "interface",
+                "memif": {
+                        "role": "slave",
+                        "mode": "ethernet"
+                }
+        }
+    }'
+
