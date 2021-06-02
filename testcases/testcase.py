@@ -35,6 +35,7 @@ from tools import hugepages
 from tools import functions
 from tools import namespace
 from tools import veth
+from tools import extvswitchflctl
 from tools.teststepstools import TestStepsTools
 from tools.llc_management import rmd
 
@@ -76,6 +77,7 @@ class TestCase(object):
         self._pod_ctl = None
         self._pod_list = None
         self._vswitch_ctl = None
+        self._evfctl = None
         self._collector = None
         self._loadgen = None
         self._output_file = None
@@ -203,6 +205,10 @@ class TestCase(object):
         # If running in k8s mode.
         # This value is set in main vsperf file
         self._k8s = S.getValue('K8S')
+        if self._k8s:
+            if S.getValue('EXT_VSWITCH'):
+                self._evfctl = extvswitchfctl.ExtVswitchFlowCtl()
+
 
     def run_initialize(self):
         """ Prepare test execution environment
@@ -619,6 +625,12 @@ class TestCase(object):
         Add connections for Kubernetes Usecases
         """
         logging.info("Kubernetes: Adding Connections")
+        if self._evfctl:
+            self._evfctl.add_connections()
+            return
+        if self._vswitch_none:
+            logging.info("Vswitch cannot be None when switch is not external")
+            return
         vswitch = self._vswitch_ctl.get_vswitch()
         bridge = S.getValue('VSWITCH_BRIDGE_NAME')
         if S.getValue('K8S') and 'sriov' not in S.getValue('PLUGIN'):
