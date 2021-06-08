@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f1161f4_8576df64",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "This file needs update to Anuket and ViNePERF ...",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 76
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ac1b716_9c57e3fc",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "old",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 77
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2619d46_36f7a30d",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "virtual networking and cloud/k8s environment.",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4559495_3ecd9f20",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "networking",
+      "range": {
+        "startLine": 32,
+        "startChar": 39,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1182c3a_8965e76b",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "old -- s/switch/networking/",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a197a4b_3e9ee369",
+        "filename": "tools/report/cloud_report.jinja",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:24:59Z",
+      "side": 1,
+      "message": "56,59 s/switch/networking/g",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "5ec89be2d624c0e14a6879c0fbccf42603a1ffe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
