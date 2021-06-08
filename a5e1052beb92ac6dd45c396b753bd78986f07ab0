@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "246c070a_2220a578",
+        "filename": "tools/k8s/reference-definitions/pod-defs/ovsdpdk/userspace-ovs-netapp-pod.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-08T20:30:43Z",
+      "side": 1,
+      "message": "what does it mean to request 4000m ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "a5e1052beb92ac6dd45c396b753bd78986f07ab0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
