@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bce9cd4a_8c158530",
+        "filename": "tools/pkt_fwd/dummy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-15T15:50:22Z",
+      "side": 1,
+      "message": "Need to update the copyright statement (from 2017)",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 40
+      },
+      "revId": "66a47412936e3fe107bb2ecd0d40f8141d26f0cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
