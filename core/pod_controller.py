@@ -16,7 +16,7 @@
 
 import logging
 import pexpect
-#from conf import settings
+from conf import settings
 from pods.pod.pod import IPod
 
 class PodController():
@@ -44,12 +44,15 @@ class PodController():
         self._pod_class = pod_class
         self._deployment = deployment.lower()
         self._pods = []
-        if self._deployment == 'p2p':
+        if 'pcp' in self._deployment or 'p2p' in self._deployment:
             pod_number = 1
-
+        elif 'pccp'in self._deployment:
+            pod_number = 2
+        print("POD COUNTING DONE")
+        settings.setValue('POD_COUNT', pod_number)        
+        # we will have single controller for all pods
         if pod_number:
-            self._pods = [pod_class() for _ in range(pod_number)]
-
+            self._pods.append(pod_class())
             self._logger.debug('Initializing the pod')
 
     def get_pods(self):

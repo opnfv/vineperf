@@ -49,9 +49,12 @@ class Papi(IPod):
         """
         Creation Process
         """
+        print("Entering Create Function")
         # create vswitchperf namespace
         api = client.CoreV1Api()
         namespace = 'default'
+        pod_manifests = S.getValue('POD_MANIFEST_FILEPATH')
+        pod_count = int(S.getValue('POD_COUNT'))
         #namespace = 'vswitchperf'
         # replace_namespace(api, namespace)
 
@@ -68,6 +71,8 @@ class Papi(IPod):
         version = 'v1'
         kind_plural = 'network-attachment-definitions'
         api = client.CustomObjectsApi()
+        
+        assert pod_count <= len(pod_manifests)
 
         for nad_filepath in S.getValue('NETWORK_ATTACHMENT_FILEPATH'):
             nad_manifest = load_manifest(nad_filepath)
@@ -81,15 +86,17 @@ class Papi(IPod):
                 raise Exception from err
 
         #create pod workloads
-        pod_manifest = load_manifest(S.getValue('POD_MANIFEST_FILEPATH'))
         api = client.CoreV1Api()
+        
+        for count in range(pod_count):
+            pod_manifest = load_manifest(pod_manifests[count])
 
-        try:
-            response = api.create_namespaced_pod(namespace, pod_manifest)
-            self._logger.info(str(response))
-            self._logger.info("Created POD %d ...", self._number)
-        except ApiException as err:
-            raise Exception from err
+            try:
+                response = api.create_namespaced_pod(namespace, pod_manifest)
+                self._logger.info(str(response))
+                self._logger.info("Created POD %d ...", self._number)
+            except ApiException as err:
+                raise Exception from err
 
         time.sleep(12)
 
