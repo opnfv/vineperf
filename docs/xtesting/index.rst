@@ -2,21 +2,21 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Spirent, AT&T, Ixia  and others.
 
-.. OPNFV VSPERF Documentation master file.
+.. OPNFV ViNePerf Documentation master file.
 
-********************************
-OPNFV VSPERF with OPNFV Xtesting
-********************************
+**********************************
+OPNFV ViNePerf with OPNFV Xtesting
+**********************************
 
 ============
 Introduction
 ============
-User can use VSPERF with Xtesting for two different usecases.
+User can use ViNePerf with Xtesting for two different usecases.
 
 1. Baremetal Dataplane Testing/Benchmarking.
 2. Openstack Dataplane Testing/Benchmarking.
 
-The Baremetal usecase is the legacy usecase of OPNFV VSPERF.
+The Baremetal usecase is the legacy usecase of OPNFV ViNePerf.
 
 The below figure summarizes both the usecases.
 
@@ -52,15 +52,15 @@ These commands are described in OPNFV Xtesting Documentation. Please refere to O
 Accessing the Results?
 ======================
 
-VSPERF automatically publishes the results to any OPNFV Testapi deployment.
-User has to configure following two parameters in VSPERF.
+ViNePerf automatically publishes the results to any OPNFV Testapi deployment.
+User has to configure following two parameters in ViNePerf.
 
 1. OPNFVPOD - The name of the pod.
 2. OPNFV_URL - The endpoint serving testapi.
 
 As Xtesting runs its own testapi, user should point to this (testapi endpoint of Xtesting) using the above two configuration.
 
-The above two configurations should be done wherever VSPERF is running (refer to the figure above)
+The above two configurations should be done wherever ViNePerf is running (refer to the figure above)
 
 NOTE: Before running the test, it would help if user can prepre the testapi of Xtesting (if needed). The preparation include setting up the following:
 

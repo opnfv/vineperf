@@ -6,7 +6,7 @@ many of the functional tests. It allows the verification of functionality for
 both the vSwitch and the NICs using hardware acceleration for packet
 manipulation and modification.
 
-There are three different methods of traffic capture supported by VSPERF.
+There are three different methods of traffic capture supported by ViNePerf.
 Detailed descriptions of these methods as well as their pros and cons can be
 found in the following chapters.
 
@@ -166,7 +166,7 @@ An example of Traffic Capture for testing NICs with HW offloading test:
     # The removal of VLAN headers is verified by inspection of captured frames.
     #
     # NOTE: This setup expects a DUT with two NICs with two ports each. First NIC is
-    # connected to the traffic generator (standard VSPERF setup). Ports of a second NIC
+    # connected to the traffic generator (standard ViNePerf setup). Ports of a second NIC
     # are interconnected by a patch cable. PCI addresses of all four ports have to be
     # properly configured in the WHITELIST_NICS parameter.
     {
@@ -215,9 +215,9 @@ Traffic Capture on the Traffic Generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Using the functionality of the Traffic generator makes it possible to configure
-Traffic Capture on both it's ports. With Traffic Capture enabled, VSPERF
+Traffic Capture on both it's ports. With Traffic Capture enabled, ViNePerf
 instructs the Traffic Generator to automatically export captured data into
-a pcap file. The captured packets are then sent to VSPERF for analysis and
+a pcap file. The captured packets are then sent to ViNePerf for analysis and
 verification, monitoring any changes done by both vSwitch and the NICs.
 
 Vsperf currently only supports this functionality with the **T-Rex** generator.

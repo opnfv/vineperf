@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T, Red Hat, Spirent, Ixia  and others.
 
-.. OPNFV VSPERF Documentation master file.
+.. OPNFV ViNePerf Documentation master file.
 
 ***************
 Logs User Guide

@@ -3,20 +3,20 @@
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
 =====================
-Upgrading vswitchperf
+Upgrading ViNePerf
 =====================
 
 Generic
 -------
 
-In case, that VSPERF is cloned from git repository, then it is easy to
+In case, that ViNePerf is cloned from git repository, then it is easy to
 upgrade it to the newest stable version or to the development version.
 
 You could get a list of stable releases by ``git`` command. It is necessary
 to update local git repository first.
 
-**NOTE:** Git commands must be executed from directory, where VSPERF repository
-was cloned, e.g. ``vswitchperf``.
+**NOTE:** Git commands must be executed from directory, where ViNePerf repository
+was cloned, e.g. ``vineperf``.
 
 Update of local git repository:
 
@@ -44,7 +44,7 @@ You could select which stable release should be used. For example, select ``danu
    $ git checkout danube.1.0
 
 
-Development version of VSPERF can be selected by:
+Development version of ViNePerf can be selected by:
 
 .. code:: bash
 
@@ -73,7 +73,7 @@ or
 
 In case that ``QemuDpdkVhostCuse`` is found, it must be modified to ``QemuDpdkVhostUser``.
 
-**NOTE:** In case that execution of VSPERF is automated by scripts (e.g. for
+**NOTE:** In case that execution of ViNePerf is automated by scripts (e.g. for
 CI purposes), then these scripts must be checked and updated too. It means,
 that any occurrence of:
 
@@ -96,10 +96,10 @@ important changes are discussed below.
 Paths to DPDK, OVS and QEMU
 ===========================
 
-VSPERF uses external tools for proper testcase execution. Thus it is important
+ViNePerf uses external tools for proper testcase execution. Thus it is important
 to properly configure paths to these tools. In case that tools are installed
 by installation scripts and are located inside ``./src`` directory inside
-VSPERF home, then no changes are needed. On the other hand, if path settings
+ViNePerf home, then no changes are needed. On the other hand, if path settings
 was changed by custom configuration file, then it is required to update configuration
 accordingly. Please check your configuration files for following configuration
 options:
@@ -135,7 +135,7 @@ and it is required to specify configuration parameter name in the same form
 as it is defined inside configuration file, i.e. in uppercase. Please
 refer to the :ref:`overriding-parameters-documentation` for additional details.
 
-**NOTE:** In case that execution of VSPERF is automated by scripts (e.g. for
+**NOTE:** In case that execution of ViNePerf is automated by scripts (e.g. for
 CI purposes), then these scripts must be checked and updated too. It means,
 that any occurrence of
 
@@ -165,7 +165,7 @@ release and it is now possible to modify all traffic specific options via
 CLI or by ``TRAFFIC`` dictionary in configuration file. Detailed description
 is available at :ref:`configuration-of-traffic-dictionary` section of documentation.
 
-Please check your automated scripts for VSPERF execution for following CLI
+Please check your automated scripts for ViNePerf execution for following CLI
 parameters and update them according to the documentation:
 
 .. code:: bash

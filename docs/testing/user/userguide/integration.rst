@@ -7,7 +7,7 @@
 Integration tests
 =================
 
-VSPERF includes a set of integration tests defined in conf/integration.
+ViNePerf includes a set of integration tests defined in conf/integration.
 These tests can be run by specifying --integration as a parameter to vsperf.
 Current tests in conf/integration include switch functionality and Overlay
 tests.
@@ -15,7 +15,7 @@ tests.
 Tests in the conf/integration can be used to test scaling of different switch
 configurations by adding steps into the test case.
 
-For the overlay tests VSPERF supports VXLAN, GRE and GENEVE tunneling protocols.
+For the overlay tests ViNePerf supports VXLAN, GRE and GENEVE tunneling protocols.
 Testing of these protocols is limited to unidirectional traffic and
 P2P (Physical to Physical scenarios).
 
@@ -31,7 +31,7 @@ or GENEVE protocols. In that case options "Tunnel Operation" and
 Executing Integration Tests
 ---------------------------
 
-To execute integration tests VSPERF is run with the integration parameter. To
+To execute integration tests ViNePerf is run with the integration parameter. To
 view the current test list simply execute the following command:
 
 .. code-block:: console

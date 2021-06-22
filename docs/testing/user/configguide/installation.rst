@@ -5,15 +5,15 @@
 .. _vsperf-installation:
 
 ======================
-Installing vswitchperf
+Installing ViNePerf
 ======================
 
-Downloading vswitchperf
+Downloading ViNeperf
 -----------------------
 
-The vswitchperf can be downloaded from its official git repository, which is
+The ViNePerf can be downloaded from its official git repository, which is
 hosted by OPNFV. It is necessary to install a ``git`` at your DUT before downloading
-vswitchperf. Installation of ``git`` is specific to the packaging system used by
+vineperf. Installation of ``git`` is specific to the packaging system used by
 Linux OS installed at DUT.
 
 Example of installation of GIT package and its dependencies:
@@ -31,14 +31,14 @@ Example of installation of GIT package and its dependencies:
 
      sudo apt-get install git
 
-After the ``git`` is successfully installed at DUT, then vswitchperf can be downloaded
+After the ``git`` is successfully installed at DUT, then vineperf can be downloaded
 as follows:
 
 .. code:: bash
 
-   git clone http://git.opnfv.org/vswitchperf
+   git clone https://gerrit.opnfv.org/gerrit/vineperf
 
-The last command will create a directory ``vswitchperf`` with a local copy of vswitchperf
+The last command will create a directory ``vineperf`` with a local copy of vineperf
 repository.
 
 Supported Operating Systems
@@ -79,8 +79,8 @@ Supported VNFs
 In theory, it is possible to use any VNF image, which is compatible
 with supported hypervisor. However such VNF must ensure, that appropriate
 number of network interfaces is configured and that traffic is properly
-forwarded among them. For new vswitchperf users it is recommended to start
-with official vloop-vnf_ image, which is maintained by vswitchperf community.
+forwarded among them. For new ViNePerf users it is recommended to start
+with official vloop-vnf_ image, which is maintained by ViNePerf community.
 
 .. _vloop-vnf:
 
@@ -170,15 +170,15 @@ in **/usr/bin/python3**. This environment will reside in a directory called
 **vsperfenv** in $HOME. 
 
 It will ensure, that system wide Python installation is not modified or
-broken by VSPERF installation. 
+broken by ViNePerf installation. 
  
 The complete list of Python
 packages installed inside virtualenv can be found in the file
-``requirements.txt``, which is located at the vswitchperf repository.
+``requirements.txt``, which is located at the ViNePerf repository.
 
 **NOTE:** For RHEL 7.3 Enterprise and CentOS 7.3 OVS Vanilla is not
 built from upstream source due to kernel incompatibilities. Please see the
-instructions in the vswitchperf_design document for details on configuring
+instructions in the ViNePerf_design document for details on configuring
 OVS Vanilla for binary package usage.
 
 **NOTE:** For RHEL 7.5 Enterprise DPDK and Openvswitch are not built from
@@ -202,7 +202,7 @@ issue by simply downloading the file.
     $ wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 
 
-Using vswitchperf
+Using ViNePerf
 -----------------
 
 You will need to activate the virtual environment every time you start a
@@ -221,12 +221,12 @@ new shell session. Its activation is specific to your OS:
 
      $ source $HOME/vsperfenv/bin/activate
 
-After the virtual environment is configued, then VSPERF can be used.
+After the virtual environment is configued, then ViNePerf can be used.
 For example:
 
   .. code:: bash
 
-     (vsperfenv) $ cd vswitchperf
+     (vsperfenv) $ cd vineperf
      (vsperfenv) $ ./vsperf --help
 
 Gotcha
@@ -284,7 +284,7 @@ VSPerf supports the default DPDK bind tool, but also supports driverctl. The
 driverctl tool is a new tool being used that allows driver binding to be
 persistent across reboots. The driverctl tool is not provided by VSPerf, but can
 be downloaded from upstream sources. Once installed set the bind tool to
-driverctl to allow VSPERF to correctly bind cards for DPDK tests.
+driverctl to allow ViNePerf to correctly bind cards for DPDK tests.
 
 .. code:: python
 

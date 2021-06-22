@@ -4,9 +4,9 @@
 
 .. _vsperf-design:
 
-======================
-VSPERF Design Document
-======================
+========================
+ViNePerf Design Document
+========================
 
 Intended Audience
 =================
@@ -21,11 +21,11 @@ Usage
 Example Connectivity to DUT
 ---------------------------
 
-Establish connectivity to the VSPERF DUT Linux host. If this is in an OPNFV lab
+Establish connectivity to the ViNePerf DUT Linux host. If this is in an OPNFV lab
 following the steps provided by `Pharos <https://www.opnfv.org/community/projects/pharos>`_
 to `access the POD <https://wiki.opnfv.org/display/INF/INFRA+Lab+Support>`_
 
-The followign steps establish the VSPERF environment.
+The followign steps establish the ViNePerf environment.
 
 Example Command Lines
 ---------------------
@@ -111,13 +111,13 @@ convention.
 Configuration of PATHS dictionary
 ---------------------------------
 
-VSPERF uses external tools like Open vSwitch and Qemu for execution of testcases. These
+ViNePerf uses external tools like Open vSwitch and Qemu for execution of testcases. These
 tools may be downloaded and built automatically (see :ref:`vsperf-installation-script`)
 or installed manually by user from binary packages. It is also possible to use a combination
 of both approaches, but it is essential to correctly set paths to all required tools.
 These paths are stored within a PATHS dictionary, which is evaluated before execution
 of each testcase, in order to setup testcase specific environment. Values selected for testcase
-execution are internally stored inside TOOLS dictionary, which is used by VSPERF to execute
+execution are internally stored inside TOOLS dictionary, which is used by ViNePerf to execute
 external tools, load kernel modules, etc.
 
 The default configuration of PATHS dictionary is spread among three different configuration files
@@ -180,11 +180,11 @@ of configuration options:
     * option ``type`` - is a string, which defines the type of configured paths ('src' or 'bin')
       to be selected for a given section:
 
-        * value ``src`` means, that VSPERF will use vswitch, DPDK or QEMU built from sources
-          e.g. by execution of ``systems/build_base_machine.sh`` script during VSPERF
+        * value ``src`` means, that ViNePerf will use vswitch, DPDK or QEMU built from sources
+          e.g. by execution of ``systems/build_base_machine.sh`` script during ViNePerf
           installation
 
-        * value ``bin`` means, that VSPERF will use vswitch, DPDK or QEMU binaries installed
+        * value ``bin`` means, that ViNePerf will use vswitch, DPDK or QEMU binaries installed
           directly in the operating system, e.g. via OS specific packaging system
 
     * option ``path`` - is a string with a valid system path; Its content is checked for
@@ -258,7 +258,7 @@ of configuration options:
          TOOLS['ovsdb-server'] = '/tmp/vsperf/src_vanilla/ovs/ovs/ovsdb/ovsdb-server'
 
 Note: In case that ``bin`` type is set for DPDK, then ``TOOLS['dpdk_src']`` will be set to
-the value of ``PATHS['dpdk']['src']['path']``. The reason is, that VSPERF uses downloaded
+the value of ``PATHS['dpdk']['src']['path']``. The reason is, that ViNePerf uses downloaded
 DPDK sources to copy DPDK and testpmd into the GUEST, where testpmd is built. In case,
 that DPDK sources are not available, then vsperf will continue with test execution,
 but testpmd can't be used as a guest loopback. This is useful in case, that other guest
@@ -497,11 +497,11 @@ Detailed description of ``TRAFFIC`` dictionary items follows:
 Configuration of GUEST options
 ------------------------------
 
-VSPERF is able to setup scenarios involving a number of VMs in series or in parallel.
+ViNePerf is able to setup scenarios involving a number of VMs in series or in parallel.
 All configuration options related to a particular VM instance are defined as
 lists and prefixed with ``GUEST_`` label. It is essential, that there is enough
 items in all ``GUEST_`` options to cover all VM instances involved in the test.
-In case there is not enough items, then VSPERF will use the first item of
+In case there is not enough items, then ViNePerf will use the first item of
 particular ``GUEST_`` option to expand the list to required length.
 
 Example of option expansion for 4 VMs:
@@ -605,7 +605,7 @@ PXP Deployment
 Every testcase uses one of the supported deployment scenarios to setup test environment.
 The controller responsible for a given scenario configures flows in the vswitch to route
 traffic among physical interfaces connected to the traffic generator and virtual
-machines. VSPERF supports several deployments including PXP deployment, which can
+machines. ViNePerf supports several deployments including PXP deployment, which can
 setup various scenarios with multiple VMs.
 
 These scenarios are realized by VswitchControllerPXP class, which can configure and
@@ -716,7 +716,7 @@ by deployment name as follows:
   * ``pvpv[number]`` - configures scenario with VMs connected in parallel with
     optional ``number`` of VMs. In case that ``number`` is not specified, then
     2 VMs will be used. Multistream feature is used to route traffic to particular
-    VMs (or NIC pairs of every VM). It means, that VSPERF will enable multistream
+    VMs (or NIC pairs of every VM). It means, that ViNePerf will enable multistream
     feature and sets the number of streams to the number of VMs and their NIC
     pairs. Traffic will be dispatched based on Stream Type, i.e. by UDP port,
     IP address or MAC address.
@@ -805,7 +805,7 @@ are modified inside VM (e.g. MAC swap or IP change).
 VM, vSwitch, Traffic Generator Independence
 ===========================================
 
-VSPERF supports different VSwitches, Traffic Generators, VNFs
+ViNePerf supports different VSwitches, Traffic Generators, VNFs
 and Forwarding Applications by using standard object-oriented polymorphism:
 
   * Support for vSwitches is implemented by a class inheriting from IVSwitch.

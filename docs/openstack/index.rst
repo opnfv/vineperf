@@ -2,19 +2,19 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Spirent Communications, AT&T, Ixia  and others.
 
-.. OPNFV VSPERF With Openstack master file.
+.. OPNFV ViNePerf With Openstack master file.
 
-***************************
-OPNFV VSPERF with OPENSTACK
-***************************
+*****************************
+OPNFV ViNePerf with OPENSTACK
+*****************************
 
 Introduction
 ------------
-VSPERF performs the following, when run with openstack:
+ViNePerf performs the following, when run with openstack:
 
 1. Connect to Openstack (using the credentials)
 2. Deploy Traffic-Generators in a required way (defined by scenarios)
-3. Update the VSPERF configuration based on the deployment.
+3. Update the ViNePerf configuration based on the deployment.
 4. Use the updated configuration to run test in "Trafficgen" Mode. 
 5. Publish and store results.
 

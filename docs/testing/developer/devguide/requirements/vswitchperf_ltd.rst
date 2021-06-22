@@ -2,9 +2,9 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-******************************
-VSPERF LEVEL TEST DESIGN (LTD)
-******************************
+********************************
+ViNePerf LEVEL TEST DESIGN (LTD)
+********************************
 
 .. 3.1
 

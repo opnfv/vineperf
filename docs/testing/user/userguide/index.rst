@@ -2,14 +2,14 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T, Red Hat, Spirent, Ixia  and others.
 
-.. OPNFV VSPERF Documentation master file.
+.. OPNFV ViNePerf Documentation master file.
 
-=================
-VSPERF Test Guide
-=================
+===================
+ViNePerf Test Guide
+===================
 
 .. toctree::
-   :caption: VSPERF Test Execution
+   :caption: ViNePerf Test Execution
    :maxdepth: 2
 
    ./testusage.rst
