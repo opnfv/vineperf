@@ -2,14 +2,14 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, Spirent, AT&T and others.
 
-vSwitchPerf test suites userguide
+ViNePerf test suites userguide
 ---------------------------------
 
 General
 ^^^^^^^
 
-VSPERF requires a traffic generators to run tests, automated traffic gen
-support in VSPERF includes:
+ViNePerf requires a traffic generators to run tests, automated traffic gen
+support in ViNePerf includes:
 
 - IXIA traffic generator (IxNetwork hardware) and a machine that runs the IXIA
   client software.
@@ -26,8 +26,8 @@ support in VSPERF includes:
 If you want to use another traffic generator, please select the :ref:`trafficgen-dummy`
 generator.
 
-VSPERF Installation
-^^^^^^^^^^^^^^^^^^^
+ViNePerf Installation
+^^^^^^^^^^^^^^^^^^^^^
 
 To see the supported Operating Systems, vSwitches and system requirements,
 please follow the `installation instructions <vsperf-installation>`.
@@ -41,10 +41,10 @@ install and configure a suitable traffic generator.
 Cloning and building src dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to run VSPERF, you will need to download DPDK and OVS. You can
+In order to run ViNePerf, you will need to download DPDK and OVS. You can
 do this manually and build them in a preferred location, OR you could
-use vswitchperf/src. The vswitchperf/src directory contains makefiles
-that will allow you to clone and build the libraries that VSPERF depends
+use vineperf/src. The vineperf/src directory contains makefiles
+that will allow you to clone and build the libraries that ViNePerf depends
 on, such as DPDK and OVS. To clone and build simply:
 
 .. code-block:: console
@@ -52,7 +52,7 @@ on, such as DPDK and OVS. To clone and build simply:
     $ cd src
     $ make
 
-VSPERF can be used with stock OVS (without DPDK support). When build
+ViNePerf can be used with stock OVS (without DPDK support). When build
 is finished, the libraries are stored in src_vanilla directory.
 
 The 'make' builds all options in src:
@@ -61,7 +61,7 @@ The 'make' builds all options in src:
 * OVS with vhost_user as the guest access method (with DPDK support)
 
 The vhost_user build will reside in src/ovs/
-The Vanilla OVS build will reside in vswitchperf/src_vanilla
+The Vanilla OVS build will reside in vineperf/src_vanilla
 
 To delete a src subdirectory and its contents to allow you to re-clone simply
 use:
@@ -193,7 +193,7 @@ Referencing parameter values
 It is possible to use a special macro ``#PARAM()`` to refer to the value of
 another configuration parameter. This reference is evaluated during
 access of the parameter value (by ``settings.getValue()`` call), so it
-can refer to parameters created during VSPERF runtime, e.g. NICS dictionary.
+can refer to parameters created during ViNePerf runtime, e.g. NICS dictionary.
 It can be used to reflect DUT HW details in the testcase definition.
 
 Example:
@@ -216,7 +216,7 @@ Example:
 vloop_vnf
 ^^^^^^^^^
 
-VSPERF uses a VM image called vloop_vnf for looping traffic in the deployment
+ViNePerf uses a VM image called vloop_vnf for looping traffic in the deployment
 scenarios involving VMs. The image can be downloaded from
 `<http://artifacts.opnfv.org/>`__.
 
@@ -230,7 +230,7 @@ l2fwd Kernel Module
 
 A Kernel Module that provides OSI Layer 2 Ipv4 termination or forwarding with
 support for Destination Network Address Translation (DNAT) for both the MAC and
-IP addresses. l2fwd can be found in <vswitchperf_dir>/src/l2fwd
+IP addresses. l2fwd can be found in <vineperf_dir>/src/l2fwd
 
 Additional Tools Setup
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -241,8 +241,8 @@ install and configure additional tools such as collectors and loadgens.
 Executing tests
 ^^^^^^^^^^^^^^^
 
-All examples inside these docs assume, that user is inside the VSPERF
-directory. VSPERF can be executed from any directory.
+All examples inside these docs assume, that user is inside the ViNePerf
+directory. ViNePerf can be executed from any directory.
 
 Before running any tests make sure you have root permissions by adding
 the following line to /etc/sudoers:
@@ -525,15 +525,15 @@ of NIC PCI slot definition:
 
 Where 'vf' is an indication of virtual function usage and following
 number defines a VF to be used. In case that VF usage is detected,
-then vswitchperf will enable SRIOV support for given card and it will
+then vineperf will enable SRIOV support for given card and it will
 detect PCI slot numbers of selected VFs.
 
 So in example above, one VF will be configured for NIC '0000:05:00.0'
-and four VFs will be configured for NIC '0000:05:00.1'. Vswitchperf
+and four VFs will be configured for NIC '0000:05:00.1'. ViNePerf
 will detect PCI addresses of selected VFs and it will use them during
 test execution.
 
-At the end of vswitchperf execution, SRIOV support will be disabled.
+At the end of vineperf execution, SRIOV support will be disabled.
 
 SRIOV support is generic and it can be used in different testing scenarios.
 For example:
@@ -668,7 +668,7 @@ information on these drivers.
 Guest Core and Thread Binding
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-VSPERF provides options to achieve better performance by guest core binding and
+ViNePerf provides options to achieve better performance by guest core binding and
 guest vCPU thread binding as well. Core binding is to bind all the qemu threads.
 Thread binding is to bind the house keeping threads to some CPU and vCPU thread to
 some other CPU, this helps to reduce the noise from qemu house keeping threads.
@@ -787,7 +787,7 @@ assigned at least (nb_cores +1) total cores with the cpu mask.
 Jumbo Frame Testing
 ^^^^^^^^^^^^^^^^^^^
 
-VSPERF provides options to support jumbo frame testing with a jumbo frame supported
+ViNePerf provides options to support jumbo frame testing with a jumbo frame supported
 NIC and traffic generator for the following vswitches:
 
 1.  OVSVanilla
@@ -820,7 +820,7 @@ its mtu size changed manually using ifconfig or applicable tools:
 documents as it differs from distribution to distribution.
 
 To start a test for jumbo frames modify the conf file packet sizes or pass the option
-through the VSPERF command line.
+through the ViNePerf command line.
 
 .. code-block:: python
 
@@ -945,10 +945,10 @@ Execution of TestPMD can be run with the following command line
 **NOTE:** To achieve the best 0% loss numbers with rfc2544 throughput testing, other tunings should be applied to host
 and guest such as tuned profiles and CPU tunings to prevent possible interrupts to worker threads.
 
-VSPERF modes of operation
-^^^^^^^^^^^^^^^^^^^^^^^^^
+ViNePerf modes of operation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-VSPERF can be run in different modes. By default it will configure vSwitch,
+ViNePerf can be run in different modes. By default it will configure vSwitch,
 traffic generator and VNF. However it can be used just for configuration
 and execution of traffic generator. Another option is execution of all
 components except traffic generator itself.
@@ -964,14 +964,14 @@ Mode of operation is driven by configuration parameter -m or --mode
             "trafficgen-off" - execute vSwitch and VNF
             "trafficgen-pause" - execute vSwitch and VNF but wait before traffic transmission
 
-In case, that VSPERF is executed in "trafficgen" mode, then configuration
+In case, that ViNePerf is executed in "trafficgen" mode, then configuration
 of traffic generator can be modified through ``TRAFFIC`` dictionary passed to the
 ``--test-params`` option. It is not needed to specify all values of ``TRAFFIC``
 dictionary. It is sufficient to specify only values, which should be changed.
 Detailed description of ``TRAFFIC`` dictionary can be found at
 :ref:`configuration-of-traffic-dictionary`.
 
-Example of execution of VSPERF in "trafficgen" mode:
+Example of execution of ViNePerf in "trafficgen" mode:
 
 .. code-block:: console
 
@@ -1014,7 +1014,7 @@ Example output:
 Code change verification by pylint
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Every developer participating in VSPERF project should run
+Every developer participating in ViNePerf project should run
 pylint before his python code is submitted for review. Project
 specific configuration for pylint is available at 'pylint.rc'.
 

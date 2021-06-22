@@ -2,13 +2,13 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-OPNFV Test Results
+Anuket Test Results
 =========================
-VSPERF CI jobs are run daily and sample results can be found at
+ViNePerf CI jobs are run daily and sample results can be found at
 https://wiki.opnfv.org/display/vsperf/Vsperf+Results
 
 Testcase names shown in the dashboard are combination of orignal testcase
-name from VSPERF framework and indication of used vswitch.
+name from ViNePerf framework and indication of used vswitch.
 
     Example:
 

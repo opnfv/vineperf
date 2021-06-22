@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-Execution of vswitchperf testcases by Yardstick
+Execution of ViNePerf testcases by Yardstick
 -----------------------------------------------
 
 General
@@ -10,12 +10,12 @@ General
 
 Yardstick is a generic framework for a test execution, which is used for
 validation of installation of OPNFV platform. In the future, Yardstick will
-support two options of vswitchperf testcase execution:
+support two options of ViNePerf testcase execution:
 
-- plugin mode, which will execute native vswitchperf testcases; Tests will
+- plugin mode, which will execute native ViNePerf testcases; Tests will
   be executed natively by vsperf, and test results will be processed and
   reported by yardstick.
-- traffic generator mode, which will run vswitchperf in **trafficgen**
+- traffic generator mode, which will run ViNePerf in **trafficgen**
   mode only; Yardstick framework will be used to launch VNFs and to configure
   flows to ensure, that traffic is properly routed. This mode will allow to
   test OVS performance in real world scenarios.
@@ -32,19 +32,19 @@ to install the yardstick.
 
 Please note, that yardstick uses OpenStack for execution of testcases.
 OpenStack must be installed with Heat and Neutron services. Otherwise
-vswitchperf testcases cannot be executed.
+ViNePerf testcases cannot be executed.
 
-VM image with vswitchperf
+VM image with ViNePerf
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A special VM image is required for execution of vswitchperf specific testcases
+A special VM image is required for execution of ViNePerf specific testcases
 by yardstick. It is possible to use a sample VM image available at OPNFV
 artifactory or to build customized image.
 
-Sample VM image with vswitchperf
+Sample VM image with ViNePerf
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sample VM image is available at vswitchperf section of OPNFV artifactory
+Sample VM image is available at ViNePerf section of OPNFV artifactory
 for free download:
 
 .. code-block:: console
@@ -58,18 +58,18 @@ generator.
 This software is not included in the sample image and must be installed by user.
 
 **NOTE:** This image will be updated only in case, that new features related
-to yardstick integration will be added to the vswitchperf.
+to yardstick integration will be added to the ViNePerf.
 
 Preparation of custom VM image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In general, any Linux distribution supported by vswitchperf can be used as
-a base image for vswitchperf. One of the possibilities is to modify vloop-vnf
+In general, any Linux distribution supported by ViNePerf can be used as
+a base image for ViNePerf. One of the possibilities is to modify vloop-vnf
 image, which can be downloaded from `<http://artifacts.opnfv.org/vswitchperf.html/>`__
 (see :ref:`vloop-vnf`).
 
 Please follow the :ref:`vsperf-installation` to
-install vswitchperf inside vloop-vnf image. As vswitchperf will be run in
+install ViNePerf inside vloop-vnf image. As ViNePerf will be run in
 trafficgen mode, it is possible to skip installation and compilation of OVS,
 QEMU and DPDK to keep image size smaller.
 
@@ -80,8 +80,8 @@ of IXIA, you would need to install IxOS and IxNetowrk TCL API.
 VM image usage
 ~~~~~~~~~~~~~~
 
-Image with vswitchperf must be uploaded into the glance service and
-vswitchperf specific flavor configured, e.g.:
+Image with ViNePerf must be uploaded into the glance service and
+ViNePerf specific flavor configured, e.g.:
 
 .. code-block:: console
 
@@ -110,14 +110,14 @@ Next step is configuration of OpenStack environment, e.g. in case of devstack:
    source /opt/openstack/devstack/openrc
    export EXTERNAL_NETWORK=public
 
-Vswitchperf testcases executable by yardstick are located at vswitchperf
+ViNePerf testcases executable by yardstick are located at ViNePerf
 repository inside ``yardstick/tests`` directory. Example of their download
 and execution follows:
 
 .. code-block:: console
 
-   git clone https://gerrit.opnfv.org/gerrit/vswitchperf
-   cd vswitchperf
+   git clone https://gerrit.opnfv.org/gerrit/vineperf
+   cd vineperf
 
    yardstick -d task start yardstick/tests/rfc2544_throughput_dummy.yaml
 
@@ -126,10 +126,10 @@ and execution follows:
 Testcase customization
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Yardstick testcases are described by YAML files. vswitchperf specific testcases
-are part of the vswitchperf repository and their yaml files can be found at
+Yardstick testcases are described by YAML files. ViNePerf specific testcases
+are part of the ViNePerf repository and their yaml files can be found at
 ``yardstick/tests`` directory. For detailed description of yaml file structure,
-please see yardstick documentation and testcase samples. Only vswitchperf specific
+please see yardstick documentation and testcase samples. Only ViNePerf specific
 parts will be discussed here.
 
 Example of yaml file:
@@ -170,14 +170,14 @@ Example of yaml file:
 Section option
 ~~~~~~~~~~~~~~
 
-Section **option** defines details of vswitchperf test scenario. Lot of options
-are identical to the vswitchperf parameters passed through ``--test-params``
+Section **option** defines details of ViNePerf test scenario. Lot of options
+are identical to the ViNePerf parameters passed through ``--test-params``
 argument. Following options are supported:
 
 - **frame_size** - a packet size for which test should be executed;
   Multiple packet sizes can be tested by modification of Sequence runner
   section inside YAML definition. Default: '64'
-- **conf_file** - sets path to the vswitchperf configuration file, which will be
+- **conf_file** - sets path to the ViNePerf configuration file, which will be
   uploaded to VM; Default: '~/vsperf-yardstick.conf'
 - **setup_script** - sets path to the setup script, which will be executed
   during setup and teardown phases
@@ -192,7 +192,7 @@ argument. Following options are supported:
   Parameters should be stated in the form of ``param=value`` and separated
   by a semicolon. Configuration of traffic generator is driven by ``TRAFFIC``
   dictionary, which can be also updated by values defined by ``test_params``.
-  Please check VSPERF documentation for details about available configuration
+  Please check ViNePerf documentation for details about available configuration
   parameters and their data types.
   In case that both **test_params** and **conf_file** are specified,
   then values from **test_params** will override values defined
@@ -216,7 +216,7 @@ Section runner
 
 Yardstick supports several `runner types
 <http://artifacts.opnfv.org/yardstick/docs/userguide/architecture.html#runner-types>`__.
-In case of vswitchperf specific TCs, **Sequence** runner type can be used to
+In case of ViNePerf specific TCs, **Sequence** runner type can be used to
 execute the testcase for given list of frame sizes.
 
 
@@ -226,7 +226,7 @@ Section sla
 In case that sla section is not defined, then testcase will be always
 considered as successful. On the other hand, it is possible to define a set of
 test metrics and their minimal values to evaluate test success. Any numeric
-value, reported by vswitchperf inside CSV result file, can be used.
+value, reported by ViNePerf inside CSV result file, can be used.
 Multiple metrics can be defined as a coma separated list of items. Minimal
 value must be set separately for each metric.
 

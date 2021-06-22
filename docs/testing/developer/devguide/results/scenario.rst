@@ -2,8 +2,8 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-VSPERF Test Scenarios
-=====================
+ViNePerf Test Scenarios
+=======================
 
 Predefined Tests suitable for automated execution with CI:
 

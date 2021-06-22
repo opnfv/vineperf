@@ -10,10 +10,10 @@ Step driven tests
 In general, test scenarios are defined by a ``deployment`` used in the particular
 test case definition. The chosen deployment scenario will take care of the vSwitch
 configuration, deployment of VNFs and it can also affect configuration of a traffic
-generator. In order to allow a more flexible way of testcase scripting, VSPERF supports
+generator. In order to allow a more flexible way of testcase scripting, ViNePerf supports
 a detailed step driven testcase definition. It can be used to configure and
 program vSwitch, deploy and terminate VNFs, execute a traffic generator,
-modify a VSPERF configuration, execute external commands, etc.
+modify a ViNePerf configuration, execute external commands, etc.
 
 Execution of step driven tests is done on a step by step work flow starting
 with step 0 as defined inside the test case. Each step of the test increments
@@ -121,7 +121,7 @@ parameters.
 
       List of supported functions:
 
-        * ``start`` - starts a VNF based on VSPERF configuration
+        * ``start`` - starts a VNF based on ViNePerf configuration
         * ``stop`` - gracefully terminates given VNF
         * ``execute command [delay]`` - executes command `cmd` inside VNF; Optional
           delay defines number of seconds to wait before next step is executed. Method
@@ -183,7 +183,10 @@ parameters.
 
 .. _step-driven-tests-variable-usage:
 
-    * ``settings`` - reads or modifies VSPERF configuration
+Step Driven Tests Variable Usage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    * ``settings`` - reads or modifies ViNePerf configuration
 
       List of supported functions:
 
@@ -202,7 +205,7 @@ parameters.
 
             ['settings', 'resetValue', 'WHITELIST_NICS'],
 
-        It is possible and more convenient to access any VSPERF configuration option directly
+        It is possible and more convenient to access any ViNePerf configuration option directly
         via ``$NAME`` notation. Option evaluation is done during runtime and vsperf will
         automatically translate it to the appropriate call of ``settings.getValue``.
         If the referred parameter does not exist, then vsperf will keep ``$NAME``

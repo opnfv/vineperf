@@ -2,46 +2,48 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T, Red Hat, Spirent, Ixia  and others.
 
-.. OPNFV VSPERF Documentation master file.
+.. Anuket ViNePerf Documentation master file.
 
-***********************************
-VSPERF Configuration and User Guide
-***********************************
+*************************************
+ViNePerf Configuration and User Guide
+*************************************
 
 ============
 Introduction
 ============
 
-VSPERF is an OPNFV testing project.
+ViNePerf is an OPNFV testing project.
 
-VSPERF provides an automated test-framework and comprehensive test suite based on Industry
+ViNePerf provides an automated test-framework and comprehensive test suite based on Industry
 Test Specifications for measuring NFVI data-plane performance. The data-path includes switching technologies with
-physical and virtual network interfaces. The VSPERF architecture is switch and traffic generator agnostic and test
-cases can be easily customized. VSPERF was designed to be independent of OpenStack therefore OPNFV installer scenarios
-are not required. VSPERF can source, configure and deploy the device-under-test using specified software versions and
-network topology. VSPERF is used as a development tool for optimizing switching technologies, qualification of packet
+physical and virtual network interfaces. The ViNePerf architecture is switch and traffic generator agnostic and test
+cases can be easily customized. ViNePerf was designed to be independent of OpenStack therefore OPNFV installer scenarios
+are not required. ViNePerf can source, configure and deploy the device-under-test using specified software versions and
+network topology. ViNePerf is used as a development tool for optimizing switching technologies, qualification of packet
 processing functions and for evaluation of data-path performance.
 
-The Euphrates release adds new features and improvements that will help advance high performance packet processing
+The Kali release adds new features and improvements that will help advance high performance packet processing
 on Telco NFV platforms. This includes new test cases, flexibility in customizing test-cases, new results display
 options, improved tool resiliency, additional traffic generator support and VPP support.
 
-VSPERF provides a framework where the entire NFV Industry can learn about NFVI data-plane performance and try-out
-new techniques together. A new IETF benchmarking specification (RFC8204) is based on VSPERF work contributed since
-2015. VSPERF is also contributing to development of ETSI NFV test specifications through the Test and Open Source
+The support for Openstack and Kubernetes was added in Jerma release, and Kali release adds additional testcases to it.
+
+ViNePerf provides a framework where the entire NFV Industry can learn about NFVI data-plane performance and try-out
+new techniques together. A new IETF benchmarking specification (RFC8204) is based on ViNePerf work contributed since
+2015. ViNePerf is also contributing to development of ETSI NFV test specifications through the Test and Open Source
 Working Group.
 
-* Wiki: https://wiki.opnfv.org/display/vsperf
-* Repository: https://git.opnfv.org/vswitchperf
+* Wiki: https://wiki.anuket.io/display/HOME/ViNePERF
+* Repository: https://git.opnfv.org/vineperf
 * Artifacts: https://artifacts.opnfv.org/vswitchperf.html
-* Continuous Integration: https://build.opnfv.org/ci/view/vswitchperf/
+* Continuous Integration: https://build.opnfv.org/ci/view/vineperf/
 
-================================
-VSPERF Install and Configuration
-================================
+==================================
+ViNePerf Install and Configuration
+==================================
 
 .. toctree::
-   :caption: VSPERF Install, Upgrade, Traffic Generator Guide
+   :caption: ViNePerf Install, Upgrade, Traffic Generator Guide
    :maxdepth: 2
    :numbered:
 
@@ -50,12 +52,12 @@ VSPERF Install and Configuration
    ./trafficgen.rst
    ./tools.rst
 
-=================
-VSPERF Test Guide
-=================
+===================
+ViNePerf Test Guide
+===================
 
 .. toctree::
-   :caption: VSPERF Test Execution
+   :caption: ViNePerf Test Execution
    :maxdepth: 2
 
    ../userguide/testusage.rst

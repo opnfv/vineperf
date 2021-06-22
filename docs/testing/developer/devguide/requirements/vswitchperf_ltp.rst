@@ -4,16 +4,16 @@
 
 .. 3.1
 
-*****************************
-VSPERF LEVEL TEST PLAN (LTP)
-*****************************
+******************************
+ViNePerf LEVEL TEST PLAN (LTP)
+******************************
 
 ===============
 Introduction
 ===============
 
-The objective of the OPNFV project titled
-**Characterize vSwitch Performance for Telco NFV Use Cases**, is to
+The objective of the Anuket project titled
+**Characterize Virtual Networking Performance for Telco NFV Use Cases**, is to
 evaluate the performance of virtual switches to identify its suitability for a
 Telco Network Function Virtualization (NFV) environment. The intention of this
 Level Test Plan (LTP) document is to specify the scope, approach, resources,
@@ -1295,9 +1295,9 @@ vsperf also identified an alternative configuration for the final step:
 
 Environment/infrastructure
 ============================
-VSPERF CI jobs are run using the OPNFV lab infrastructure as described by the
+ViNePerf CI jobs are run using the Anuket lab infrastructure as described by the
 'Pharos Project <https://www.opnfv.org/community/projects/pharos>`_ .
-A VSPERF POD is described here https://wiki.opnfv.org/display/pharos/VSPERF+in+Intel+Pharos+Lab+-+Pod+12
+A ViNePerf POD is described here https://wiki.opnfv.org/display/pharos/ViNePerf+in+Intel+Pharos+Lab+-+Pod+12
 
 vsperf CI
 ---------
@@ -1322,15 +1322,15 @@ vsperf CI jobs are broken down into:
 
 Scripts:
 --------
-There are 2 scripts that are part of VSPERFs CI:
+There are 2 scripts that are part of ViNePerfs CI:
 
-  * build-vsperf.sh: Lives in the VSPERF repository in the ci/ directory and is
+  * build-vsperf.sh: Lives in the ViNePerf repository in the ci/ directory and is
     used to run vsperf with the appropriate cli parameters.
   * vswitchperf.yml: YAML description of our jenkins job. lives in the RELENG
     repository.
 
 More info on vsperf CI can be found here:
-https://wiki.opnfv.org/display/vsperf/VSPERF+CI
+https://wiki.opnfv.org/display/vsperf/ViNePerf+CI
 
 .. 3.3.3:
 

@@ -5,13 +5,13 @@
 .. _trafficgen-installation:
 
 ===========================
-'vsperf' Traffic Gen Guide
+ViNePerf Traffic Gen Guide
 ===========================
 
 Overview
 --------
 
-VSPERF supports the following traffic generators:
+ViNePerf supports the following traffic generators:
 
   * Dummy_ (DEFAULT)
   * Ixia_
@@ -136,15 +136,15 @@ If you use imix, set the TRAFFICGEN_PKT_SIZES to 0.
 Dummy
 -----
 
-The Dummy traffic generator can be used to test VSPERF installation or
-to demonstrate VSPERF functionality at DUT without connection
+The Dummy traffic generator can be used to test ViNePerf installation or
+to demonstrate ViNePerf functionality at DUT without connection
 to a real traffic generator.
 
 You could also use the Dummy generator in case, that your external
-traffic generator is not supported by VSPERF. In such case you could
-use VSPERF to setup your test scenario and then transmit the traffic.
+traffic generator is not supported by ViNePerf. In such case you could
+use ViNePerf to setup your test scenario and then transmit the traffic.
 After the transmission is completed you could specify values for all
-collected metrics and VSPERF will use them to generate final reports.
+collected metrics and ViNePerf will use them to generate final reports.
 
 Setup
 ~~~~~
@@ -204,7 +204,7 @@ when the setup is complete.
     What was the result for 'frames tx'?
 
 When your traffic generator has completed traffic transmission and provided
-the results please input these at the VSPERF prompt. VSPERF will try
+the results please input these at the ViNePerf prompt. ViNePerf will try
 to verify the input:
 
 .. code-block:: console
@@ -213,7 +213,7 @@ to verify the input:
 
 Please answer with y OR n.
 
-VSPERF will ask you to provide a value for every of collected metrics. The list
+ViNePerf will ask you to provide a value for every of collected metrics. The list
 of metrics can be found at traffic-type-metrics_.
 Finally vsperf will print out the results for your test and generate the
 appropriate logs and report files.
@@ -223,7 +223,7 @@ appropriate logs and report files.
 Metrics collected for supported traffic types
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Below you could find a list of metrics collected by VSPERF for each of supported
+Below you could find a list of metrics collected by ViNePerf for each of supported
 traffic types.
 
 RFC2544 Throughput and Continuous:
@@ -286,9 +286,9 @@ in case, that the Dummy traffic generator is used. Otherwise the option
 Ixia
 ----
 
-VSPERF can use both IxNetwork and IxExplorer TCL servers to control Ixia chassis.
+ViNePerf can use both IxNetwork and IxExplorer TCL servers to control Ixia chassis.
 However, usage of IxNetwork TCL server is a preferred option. The following sections
-will describe installation and configuration of IxNetwork components used by VSPERF.
+will describe installation and configuration of IxNetwork components used by ViNePerf.
 
 Installation
 ~~~~~~~~~~~~
@@ -309,11 +309,11 @@ installation you should configure it as follows:
 
     3. Hit Ok and start the TCL server application
 
-VSPERF configuration
-~~~~~~~~~~~~~~~~~~~~
+ViNePerf configuration
+~~~~~~~~~~~~~~~~~~~~~~
 
 There are several configuration options specific to the IxNetwork traffic generator
-from IXIA. It is essential to set them correctly, before the VSPERF is executed
+from IXIA. It is essential to set them correctly, before the ViNePerf is executed
 for the first time.
 
 Detailed description of options follows:
@@ -326,25 +326,25 @@ Detailed description of options follows:
  * ``TRAFFICGEN_IXIA_HOST`` - IP address of IXIA traffic generator chassis
  * ``TRAFFICGEN_IXIA_CARD`` - identification of card with dedicated ports at IXIA chassis
  * ``TRAFFICGEN_IXIA_PORT1`` - identification of the first dedicated port at ``TRAFFICGEN_IXIA_CARD``
-   at IXIA chassis; VSPERF uses two separated ports for traffic generation. In case of
+   at IXIA chassis; ViNePerf uses two separated ports for traffic generation. In case of
    unidirectional traffic, it is essential to correctly connect 1st IXIA port to the 1st NIC
    at DUT, i.e. to the first PCI handle from ``WHITELIST_NICS`` list. Otherwise traffic may not
    be able to pass through the vSwitch.
    **NOTE**: In case that ``TRAFFICGEN_IXIA_PORT1`` and ``TRAFFICGEN_IXIA_PORT2`` are set to the
-   same value, then VSPERF will assume, that there is only one port connection between IXIA
+   same value, then ViNePerf will assume, that there is only one port connection between IXIA
    and DUT. In this case it must be ensured, that chosen IXIA port is physically connected to the
    first NIC from ``WHITELIST_NICS`` list.
  * ``TRAFFICGEN_IXIA_PORT2`` - identification of the second dedicated port at ``TRAFFICGEN_IXIA_CARD``
-   at IXIA chassis; VSPERF uses two separated ports for traffic generation. In case of
+   at IXIA chassis; ViNePerf uses two separated ports for traffic generation. In case of
    unidirectional traffic, it is essential to correctly connect 2nd IXIA port to the 2nd NIC
    at DUT, i.e. to the second PCI handle from ``WHITELIST_NICS`` list. Otherwise traffic may not
    be able to pass through the vSwitch.
    **NOTE**: In case that ``TRAFFICGEN_IXIA_PORT1`` and ``TRAFFICGEN_IXIA_PORT2`` are set to the
-   same value, then VSPERF will assume, that there is only one port connection between IXIA
+   same value, then ViNePerf will assume, that there is only one port connection between IXIA
    and DUT. In this case it must be ensured, that chosen IXIA port is physically connected to the
    first NIC from ``WHITELIST_NICS`` list.
  * ``TRAFFICGEN_IXNET_LIB_PATH`` - path to the DUT specific installation of IxNetwork TCL API
- * ``TRAFFICGEN_IXNET_TCL_SCRIPT`` - name of the TCL script, which VSPERF will use for
+ * ``TRAFFICGEN_IXNET_TCL_SCRIPT`` - name of the TCL script, which ViNePerf will use for
    communication with IXIA TCL server
  * ``TRAFFICGEN_IXNET_TESTER_RESULT_DIR`` - folder accessible from IxNetwork TCL server,
    where test results are stored, e.g. ``c:/ixia_results``; see test-results-share_
@@ -357,11 +357,11 @@ Detailed description of options follows:
 Test results share
 ~~~~~~~~~~~~~~~~~~
 
-VSPERF is not able to retrieve test results via TCL API directly. Instead, all test
+ViNePerf is not able to retrieve test results via TCL API directly. Instead, all test
 results are stored at IxNetwork TCL server. Results are stored at folder defined by
 ``TRAFFICGEN_IXNET_TESTER_RESULT_DIR`` configuration parameter. Content of this
 folder must be shared (e.g. via samba protocol) between TCL Server and DUT, where
-VSPERF is executed. VSPERF expects, that test results will be available at directory
+ViNePerf is executed. ViNePerf expects, that test results will be available at directory
 configured by ``TRAFFICGEN_IXNET_DUT_RESULT_DIR`` configuration parameter.
 
 Example of sharing configuration:
@@ -370,7 +370,7 @@ Example of sharing configuration:
  * Modify sharing options of ``ixia_results`` folder to share it with everybody
  * Create a new directory at DUT, where shared directory with results
    will be mounted, e.g. ``/mnt/ixia_results``
- * Update your custom VSPERF configuration file as follows:
+ * Update your custom ViNePerf configuration file as follows:
 
    .. code-block:: python
 
@@ -387,7 +387,7 @@ Example of sharing configuration:
 
        yum install cifs-utils
 
- * Mount shared directory, so VSPERF can access test results.
+ * Mount shared directory, so ViNePerf can access test results.
 
    e.g. by adding new record into ``/etc/fstab``
 
@@ -733,9 +733,9 @@ can be found here:
 
 https://github.com/emmericp/MoonGen
 
-* Note:  Today, MoonGen with VSPERF only supports 10Gbps line speeds.
+* Note:  Today, MoonGen with ViNePerf only supports 10Gbps line speeds.
 
-For VSPERF use, MoonGen should be cloned from here (as opposed to the
+For ViNePerf use, MoonGen should be cloned from here (as opposed to the
 previously mentioned GitHub):
 
 .. code-block:: console
@@ -748,7 +748,7 @@ and use the master branch:
 
     git checkout master
 
-VSPERF uses a particular Lua script with the MoonGen project:
+ViNePerf uses a particular Lua script with the MoonGen project:
 
 trafficgen.lua
 
@@ -757,8 +757,8 @@ Follow MoonGen set up and execution instructions here:
 https://github.com/atheurer/trafficgen/blob/master/README.md
 
 Note one will need to set up ssh login to not use passwords between the server
-running MoonGen and the device under test (running the VSPERF test
-infrastructure).  This is because VSPERF on one server uses 'ssh' to
+running MoonGen and the device under test (running the ViNePerf test
+infrastructure).  This is because ViNePerf on one server uses 'ssh' to
 configure and run MoonGen upon the other server.
 
 One can set up this ssh access by doing the following on both servers:
@@ -802,7 +802,7 @@ You can directly download from GitHub:
 
 and use the same Trex version for both server and client API.
 
-**NOTE:** The Trex API version used by VSPERF is defined by variable ``TREX_TAG``
+**NOTE:** The Trex API version used by ViNePerf is defined by variable ``TREX_TAG``
 in file ``src/package-list.mk``.
 
 .. code-block:: console
@@ -842,7 +842,7 @@ For additional information about configuration file see official documentation (
 https://trex-tgn.cisco.com/trex/doc/trex_manual.html#_creating_minimum_configuration_file
 
 After compilation and configuration it is possible to run trex server in stateless mode.
-It is neccesary for proper connection between Trex server and VSPERF.
+It is neccesary for proper connection between Trex server and ViNePerf.
 
 .. code-block:: console
 
@@ -850,7 +850,7 @@ It is neccesary for proper connection between Trex server and VSPERF.
    ./t-rex-64 -i
 
 **NOTE:** Please check your firewall settings at both DUT and T-Rex server.
-Firewall must allow a connection from DUT (VSPERF) to the T-Rex server running
+Firewall must allow a connection from DUT (ViNePerf) to the T-Rex server running
 at TCP port 4501.
 
 **NOTE:** For high speed cards it may be advantageous to start T-Rex with more transmit queues/cores.
@@ -865,8 +865,8 @@ For additional information about Trex stateless mode see Trex stateless document
 https://trex-tgn.cisco.com/trex/doc/trex_stateless.html
 
 **NOTE:** One will need to set up ssh login to not use passwords between the server
-running Trex and the device under test (running the VSPERF test
-infrastructure). This is because VSPERF on one server uses 'ssh' to
+running Trex and the device under test (running the ViNePerf test
+infrastructure). This is because ViNePerf on one server uses 'ssh' to
 configure and run Trex upon the other server.
 
 One can set up this ssh access by doing the following on both servers:
@@ -912,7 +912,7 @@ place. This can be adjusted with the following configurations:
     TRAFFICGEN_TREX_LEARNING_MODE=True
     TRAFFICGEN_TREX_LEARNING_DURATION=5
 
-Latency measurements have impact on T-Rex performance. Thus vswitchperf uses a separate
+Latency measurements have impact on T-Rex performance. Thus ViNePerf uses a separate
 latency stream for each direction with limited speed. This workaround is used for RFC2544
 **Throughput** and **Continuous** traffic types. In case of **Burst** traffic type,
 the latency statistics are measured for all frames in the burst. Collection of latency
@@ -984,7 +984,7 @@ Scapy frame definition
 It is possible to use a SCAPY frame definition to generate various network protocols
 by the **T-Rex** traffic generator. In case that particular network protocol layer
 is disabled by the TRAFFIC dictionary (e.g. TRAFFIC['vlan']['enabled'] = False),
-then disabled layer will be removed from the scapy format definition by VSPERF.
+then disabled layer will be removed from the scapy format definition by ViNePerf.
 
 The scapy frame definition can refer to values defined by the TRAFFIC dictionary
 by following keywords. These keywords are used in next examples.

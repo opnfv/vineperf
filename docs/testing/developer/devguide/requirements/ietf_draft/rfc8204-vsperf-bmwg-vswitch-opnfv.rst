@@ -6,12 +6,12 @@
 IETF benchmarking specification RFC8204
 ***************************************
 
-The directory /ietf_draft was used to store draft versions of the VSPERF test specification proposed
+The directory /ietf_draft was used to store draft versions of the ViNePerf test specification proposed
 as an Internet Draft and subsequently approved for publication as  RFC8204. The draft versions have
 been removed. "Benchmarking Virtual Switches in the Open Platform for NFV (OPNFV)" is an
 informational RFC published by the IETF available here https://tools.ietf.org/html/rfc8204.
 
-For more information about VSPERF refer to:
+For more information about ViNePerf refer to:
 
 * Wiki: https://wiki.opnfv.org/display/vsperf
 * Repository: https://git.opnfv.org/vswitchperf
