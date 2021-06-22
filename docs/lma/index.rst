@@ -2,11 +2,11 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T, Red Hat, Spirent, Ixia  and others.
 
-.. OPNFV VSPERF LMA Documentation master file.
+.. Anuket ViNePerf LMA Documentation master file.
 
-***********************
-OPNFV VSPERF LMA Guides
-***********************
+**************************
+Anuket ViNePerf LMA Guides
+**************************
 
 .. toctree::
    :caption: Developer Guide for Monitoring Tools

@@ -2,9 +2,9 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-**************
-VSPERF Results
-**************
+****************
+ViNePerf Results
+****************
 
 .. toctree::
    :numbered:
@@ -12,3 +12,4 @@ VSPERF Results
 
    scenario.rst
    results.rst
+   osk8s.rst

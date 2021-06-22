@@ -125,9 +125,9 @@ Example of execution of all OVS/DPDK regression tests:
 
 Testcases are defined in the file ``conf/integration/01b_dpdk_regression_tests.conf``. This file
 contains a set of configuration options with prefix ``OVSDPDK_``. These parameters can be used
-for customization of regression tests and they will override some of standard VSPERF configuration
+for customization of regression tests and they will override some of standard ViNePerf configuration
 options. It is recommended to check OVSDPDK configuration parameters and modify them in accordance
-with VSPERF configuration.
+with ViNePerf configuration.
 
 At least following parameters should be examined. Their values shall ensure, that DPDK and
 QEMU threads are pinned to cpu cores of the same NUMA slot, where tested NICs are connected.
@@ -229,7 +229,7 @@ Multiqueue Support
 
 A set of functional testcases for validation of multiqueue support for both physical
 and vHost User DPDK ports. Testcases utilize P2P and PVP network deployments and
-native support of multiqueue configuration available in VSPERF.
+native support of multiqueue configuration available in ViNePerf.
 
 ======================================== ======================================================================================
 Testcase Name                            Description
@@ -293,7 +293,7 @@ Jumbo Frame Support
 
 A set of functional testcases for verification of jumbo frame support in OVS.
 Testcases utilize P2P and PVP network deployments and native support of jumbo
-frames available in VSPERF.
+frames available in ViNePerf.
 
 ============================================ ==================================================================================
 Testcase Name                                Description
@@ -392,7 +392,7 @@ Custom Statistics
 +++++++++++++++++
 
 A set of functional testcases for validation of Custom Statistics support by OVS.
-This feature allows Custom Statistics to be accessed by VSPERF.
+This feature allows Custom Statistics to be accessed by ViNePerf.
 
 These testcases require DPDK v17.11, the latest Open vSwitch(v2.9.90)
 and the IxNet traffic-generator.

@@ -6,7 +6,7 @@
 .. (c) Open Platform for NFV Project, Inc. and its contributors
 
 *********************************
-OPNFV Vswitchperf
+Anuket ViNePerf
 *********************************
 
 .. toctree::
@@ -14,11 +14,12 @@ OPNFV Vswitchperf
    :maxdepth: 3
 
    release/release-notes/index
+   renaming/index
    testing/developer/devguide/index
    testing/developer/devguide/results/index
+   testing/user/userguide/index
    testing/user/configguide/index
    lma/index
    openstack/index
    k8s/index
    xtesting/index
-

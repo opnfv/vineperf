@@ -2,6 +2,33 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, Spirent Communications, AT&T and others.
 
+
+Anuket Kali Release
+==================
+
+* Project Renaming: Project is renamed to ViNePerf from VswitchPerf
+
+* Supported Versions - DPDK:20.05, OVS:2.14.0, VPP:21.01, QEMU:3.1.1, Trex:2.86
+
+* Supported Release-Requirements.
+
+    * Kubernetes container-networking benchmarking.
+    * Tested Versions of Kubernetes: 1.19
+
+* Additional Features
+
+    * Enhancement to core parts to support Kubernetes usecases.
+    * Support newer versions of Ubuntu (20.04) and Fedora (33).
+    * Enhance reporting to support Openstack and Kubernetes.
+    * Added reference definition-files (network attachment, pod, etc)
+      for kuberentes usecases.
+
+* Minor bugfixes
+
+    * Avoiding some tasks for Kubernetes usecases.
+    * Newer version of some python packages
+
+
 OPNFV Jerma Release
 ===================
 
@@ -45,9 +72,9 @@ OPNFV Iruya Release
 * Supported Versions - DPDK:18.11, OVS:2.12.0, VPP:19.08.1, QEMU:3.1.1
 * Few bugfixes and minor improvements
 
-* New Feature: Containers to manage VSPERF.
+* New Feature: Containers to manage ViNePerf.
 
-    * VSPERF Containers for both deployment and test runs
+    * ViNePerf Containers for both deployment and test runs
 
 * Improvement
   
@@ -56,7 +83,7 @@ OPNFV Iruya Release
         * Infrastructure data
         * End-Of-Test Results
         * Live-Results
-        * Events from VSPERF Logs
+        * Events from ViNePerf Logs
         * Test Environment
 
 * Usability
@@ -98,7 +125,7 @@ OPNFV Gambia Release
 
     * OVS-Enhancement: default bridge name and offload support.
     * OVS-Enhancement: proper deletion of flows and bridges after stop.
-    * VSPERF-vSwitch Architecture Improvement
+    * ViNePerf-vSwitch Architecture Improvement
 
 * Tools
 
@@ -340,8 +367,7 @@ Supported traffic generators:
 * Spirent.
 * Dummy.
 
-Release Data
-~~~~~~~~~~~~
+Release Data:
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | vswitchperf                          |

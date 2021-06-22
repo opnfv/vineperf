@@ -33,7 +33,7 @@ Step 2 - create a trafficgen module
 ===================================
 
 Every trafficgen class must inherit from generic **ITrafficGenerator**
-interface class. VSPERF during its initialization scans content of pkt_gen
+interface class. ViNePerf during its initialization scans content of pkt_gen
 directory for all python modules, that inherit from **ITrafficGenerator**. These
 modules are automatically added into the list of supported traffic generators.
 
@@ -51,7 +51,7 @@ Let us create a draft of tools/pkt_gen/sample_tg/sample_tg.py module.
         """
         pass
 
-VSPERF is immediately aware of the new class:
+ViNePerf is immediately aware of the new class:
 
 .. code-block:: console
 
@@ -83,14 +83,14 @@ Step 3 - configuration
 ======================
 
 All configuration values, required for correct traffic generator function, are passed
-from VSPERF to the traffic generator in a dictionary. Default values shared among
+from ViNePerf to the traffic generator in a dictionary. Default values shared among
 all traffic generators are defined in **conf/03_traffic.conf** within **TRAFFIC**
 dictionary. Default values are loaded by **ITrafficGenerator** interface class
 automatically, so it is not needed to load them explicitly. In case that there are
 any traffic generator specific default values, then they should be set within class
 specific **__init__** function.
 
-VSPERF passes test specific configuration within **traffic** dictionary to every
+ViNePerf passes test specific configuration within **traffic** dictionary to every
 start and send function. So implementation of these functions must ensure,
 that default values are updated with the testcase specific values. Proper merge
 of values is assured by call of **merge_spec** function from **conf** module.
@@ -140,7 +140,7 @@ Example in **tools/pkt_gen/sample_tg/sample_tg.py** module:
 Step 5 - supported traffic types
 ================================
 
-Currently VSPERF supports three different types of tests for traffic generators,
+Currently ViNePerf supports three different types of tests for traffic generators,
 these are identified in vsperf through the traffic type, which include:
 
     * RFC2544 throughput - Send fixed size packets at different rates, using

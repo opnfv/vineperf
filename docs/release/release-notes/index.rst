@@ -5,7 +5,7 @@
 .. _vswitchperf-releasenotes:
 
 ==================================================
-VSPERF Release Notes
+ViNePerf Release Notes
 ==================================================
 
 .. toctree::

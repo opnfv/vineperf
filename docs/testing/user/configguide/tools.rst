@@ -5,19 +5,19 @@
 .. _additional-tools-configuration:
 
 =============================================
-'vsperf' Additional Tools Configuration Guide
+ViNePerf Additional Tools Configuration Guide
 =============================================
 
 Overview
 --------
 
-VSPERF supports the following categories additional tools:
+ViNePerf supports the following categories additional tools:
 
   * `Infrastructure Metrics Collectors`_
   * `Load Generators`_
   * `L3 Cache Management`_
 
-Under each category, there are one or more tools supported by VSPERF.
+Under each category, there are one or more tools supported by ViNePerf.
 This guide provides the details of how to install (if required)
 and configure the above mentioned tools.
 
@@ -26,13 +26,13 @@ and configure the above mentioned tools.
 Infrastructure Metrics Collection
 ---------------------------------
 
-VSPERF supports following two tools for collecting and reporting the metrics:
+ViNePerf supports following two tools for collecting and reporting the metrics:
 
 * pidstat
 * collectd
 
 *pidstat* is a command in linux systems, which is used for monitoring individual
-tasks currently being managed by Linux kernel.  In VSPERF this command is used to
+tasks currently being managed by Linux kernel.  In ViNePerf this command is used to
 monitor *ovs-vswitchd*, *ovsdb-server* and *kvm* processes.
 
 *collectd* is linux application that collects, stores and transfers various system
@@ -46,10 +46,10 @@ Installation
 
 No installation is required for *pidstat*, whereas, collectd has to be installed
 separately. For installation of collectd, we recommend to follow the process described
-in *OPNFV-Barometer* project, which can be found here `Barometer <https://opnfv-barometer.readthedocs.io/en/latest/release/userguide>`_
+in *Anuket-Barometer* project, which can be found here `Barometer <https://opnfv-barometer.readthedocs.io/en/latest/release/userguide>`_
 recent release.
 
-VSPERF assumes that collectd is installed and configured to send metrics over localhost.
+ViNePerf assumes that collectd is installed and configured to send metrics over localhost.
 The metrics sent should be for the following categories: CPU, Processes, Interface,
 OVS, DPDK, Intel-RDT.
 
@@ -97,9 +97,9 @@ The *collectd* configuration option includes:
 Load Generation
 ---------------
 
-In VSPERF, load generation refers to creating background cpu and memory loads to
+In ViNePerf, load generation refers to creating background cpu and memory loads to
 study the impact of these loads on system under test. There are two options to
-create loads in VSPERF. These options are used for different use-cases. The options are:
+create loads in ViNePerf. These options are used for different use-cases. The options are:
 
 * stress or stress-ng
 * Stressor-VMs
@@ -148,12 +148,12 @@ load-generation. However, for StressorVMs, following configurations apply:
 Last Level Cache Management
 ---------------------------
 
-VSPERF support last-level cache management using Intel's RDT tool(s) - the
+ViNePerf support last-level cache management using Intel's RDT tool(s) - the
 relavant ones are `Intel CAT-CMT <https://github.com/intel/intel-cmt-cat>`_ and
 `Intel RMD <https://github.com/intel/rmd>`_. RMD is a linux daemon that runs on
 individual hosts, and provides a REST API for control/orchestration layer to
 request LLC for the VMs/Containers/Applications. RDT receives resource policy
-form orchestration layer - in this case, from VSPERF - and enforce it on the host.
+form orchestration layer - in this case, from ViNePerf - and enforce it on the host.
 It achieves this enforcement via kernel interfaces such as resctrlfs and libpqos.
 The resource here refer to the last-level cache. User can configure policies to
 define how much of cache a CPU can get. The policy configuration is described below.
@@ -170,7 +170,7 @@ Configuration
 
 The configuration file for cache management can be found in **conf/08_llcmanagement.conf**.
 
-VSPERF provides following configuration options, for user to define and enforce policies via RMD.
+ViNePerf provides following configuration options, for user to define and enforce policies via RMD.
 
 * ``LLC_ALLOCATION`` - Enable or Disable LLC management.
 * ``RMD_PORT`` - RMD port (port number on which API server is listening)
@@ -186,15 +186,15 @@ VSPERF provides following configuration options, for user to define and enforce 
 * ``PMD_CA`` - [min-cache-value, max-cache-value] for PMD
 * ``NOISEVM_CA`` - [min-cache-value, max-cache-value] for Noisy VM
 
-VSPERF Containers
------------------
+ViNePerf Containers
+-------------------
 
-VSPERF containers are found in tools/docker folder.
+ViNePerf containers are found in tools/docker folder.
 
 RESULTS CONTAINER
 ^^^^^^^^^^^^^^^^^
 
-The results container includes multiple services - ELK Stack, Barometer-Grafana, OPNFV-TestAPI & Jupyter.
+The results container includes multiple services - ELK Stack, Barometer-Grafana, Anuket-TestAPI & Jupyter.
 
 Pre-Deployment Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -205,7 +205,7 @@ Pre-Deployment Configuration
 
 2. You may want to modify the IP address from 0.0.0.0 to appropriate host-ip in ``docker-compose.yml``
 
-3. Please add dashboards folder from OPNFV-Barometer-Grafana into the grafana folder. It can be found in `Barometer Grafana <https://github.com/opnfv/barometer/tree/master/docker/barometer-grafana`
+3. Please add dashboards folder from Anuket-Barometer-Grafana into the grafana folder. It can be found in `Barometer Grafana <https://github.com/opnfv/barometer/tree/master/docker/barometer-grafana`
 
 Build
 ~~~~~
