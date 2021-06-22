@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22dc9eed_03b3c265",
+        "filename": "docs/testing/developer/devguide/index.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T23:04:42Z",
+      "side": 1,
+      "message": "Anuket",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "b2a371a0fedb37eef50452a6152e4d0a25086183",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e95688a_b35c10a5",
+        "filename": "docs/testing/developer/devguide/requirements/vswitchperf_ltp.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T23:04:42Z",
+      "side": 1,
+      "message": "Anuket",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "b2a371a0fedb37eef50452a6152e4d0a25086183",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0222f343_2018a6bc",
+        "filename": "docs/testing/developer/devguide/results/results.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T23:04:42Z",
+      "side": 1,
+      "message": "Anuket",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "b2a371a0fedb37eef50452a6152e4d0a25086183",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
