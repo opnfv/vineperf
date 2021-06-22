@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f6af2da_ca3f1db3",
+        "filename": "docs/openstack/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T12:57:04Z",
+      "side": 1,
+      "message": "whitespace at end",
+      "revId": "c0bde048b0954bc8450e73e912eb013f8d37e45b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a161b3b3_31f35904",
+        "filename": "docs/testing/developer/devguide/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T12:57:04Z",
+      "side": 1,
+      "message": "Anuket testing project",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "c0bde048b0954bc8450e73e912eb013f8d37e45b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbfbf0c1_b6d09312",
+        "filename": "docs/testing/developer/devguide/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T12:57:04Z",
+      "side": 1,
+      "message": "we need 1,$ s/OPNFV/Anuket/g in this file...",
+      "range": {
+        "startLine": 20,
+        "startChar": 95,
+        "endLine": 20,
+        "endChar": 100
+      },
+      "revId": "c0bde048b0954bc8450e73e912eb013f8d37e45b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12bcd9c7_407214e7",
+        "filename": "docs/testing/developer/devguide/requirements/vswitchperf_ltp.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T12:57:04Z",
+      "side": 1,
+      "message": "s/OPNFV/Anuket/",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 41
+      },
+      "revId": "c0bde048b0954bc8450e73e912eb013f8d37e45b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e6db907_ec1584d7",
+        "filename": "docs/testing/developer/devguide/requirements/vswitchperf_ltp.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-06-22T12:57:04Z",
+      "side": 1,
+      "message": "Anuket",
+      "range": {
+        "startLine": 1298,
+        "startChar": 35,
+        "endLine": 1298,
+        "endChar": 41
+      },
+      "revId": "c0bde048b0954bc8450e73e912eb013f8d37e45b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
