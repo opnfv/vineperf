@@ -17,10 +17,11 @@
 
 import logging
 from conf import settings
+from tools.pkt_fwd.pkt_fwd import IPktFwd
 
 _LOGGER = logging.getLogger(__name__)
 
-class Dummy(IPktFwd):
+class DummyFWD(IPktFwd):
     """Dummy implementation
 
     """

@@ -33,8 +33,11 @@ class PktFwdController(object):
         self._deployment = deployment
         self._logger = logging.getLogger(__name__)
         self._pktfwd_class = pktfwd_class
-        self._pktfwd = pktfwd_class(guest=True if deployment == "pvp" and
-                                    settings.getValue('VNF') != "QemuPciPassthrough" else False)
+        if 'DummyFWD' in settings.getValue("PKTFWD") or 'pc' in deployment:
+            self._pktfwd = pktfwd_class()
+        else:
+            self._pktfwd = pktfwd_class(guest=True if deployment == "pvp" and
+                                        settings.getValue('VNF') != "QemuPciPassthrough" else False)
         self._logger.debug('Creation using %s', str(self._pktfwd_class))
 
     def setup(self):

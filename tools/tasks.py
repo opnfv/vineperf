@@ -391,7 +391,7 @@ class Process(object):
         def run(self):
             while True:
                 try:
-                    self.child.read_nonblocking()
+                    self.child.read_nonblocking(timeout=None)
                 except (pexpect.EOF, pexpect.TIMEOUT):
                     break
 

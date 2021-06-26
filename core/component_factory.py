@@ -81,6 +81,8 @@ def create_vswitch(deployment_scenario, vswitch_class, traffic,
         return VswitchControllerPtunP(deployment, vswitch_class, traffic)
     elif deployment.startswith("clean"):
         return VswitchControllerClean(deployment, vswitch_class, traffic)
+    elif deployment.startswith("pc"):
+        return VswitchControllerP2P(deployment, vswitch_class, traffic)
     else:
         raise RuntimeError("Unknown deployment scenario '{}'.".format(deployment))
 
