@@ -5,7 +5,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-pexpect==3.3
+pexpect>=4.0
 tox==1.8.1
 jinja2==2.7.3
 xmlrunner==1.7.7

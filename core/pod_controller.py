@@ -44,7 +44,7 @@ class PodController():
         self._pod_class = pod_class
         self._deployment = deployment.lower()
         self._pods = []
-        if 'pcp' in self._deployment or 'p2p' in self._deployment:
+        if 'pcp' in self._deployment:
             pod_number = 1
         elif 'pccp'in self._deployment:
             pod_number = 2

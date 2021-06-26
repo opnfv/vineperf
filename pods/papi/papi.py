@@ -43,13 +43,13 @@ class Papi(IPod):
         self._logger = logging.getLogger(__name__)
         self._sriov_config = None
         self._sriov_config_ns = None
-        config.load_kube_config(S.getValue('K8S_CONFIG_FILEPATH'))
 
     def create(self):
         """
         Creation Process
         """
         print("Entering Create Function")
+        config.load_kube_config(S.getValue('K8S_CONFIG_FILEPATH'))
         # create vswitchperf namespace
         api = client.CoreV1Api()
         namespace = 'default'
