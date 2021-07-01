@@ -30,7 +30,7 @@ ViNePerf Installation
 ^^^^^^^^^^^^^^^^^^^^^
 
 To see the supported Operating Systems, vSwitches and system requirements,
-please follow the `installation instructions <vsperf-installation>`.
+please follow the `installation instructions <vineperf-installation>`.
 
 Traffic Generator Setup
 ^^^^^^^^^^^^^^^^^^^^^^^

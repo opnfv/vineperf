@@ -68,7 +68,7 @@ a base image for ViNePerf. One of the possibilities is to modify vloop-vnf
 image, which can be downloaded from `<http://artifacts.opnfv.org/vswitchperf.html/>`__
 (see :ref:`vloop-vnf`).
 
-Please follow the :ref:`vsperf-installation` to
+Please follow the :ref:`vineperf-installation` to
 install ViNePerf inside vloop-vnf image. As ViNePerf will be run in
 trafficgen mode, it is possible to skip installation and compilation of OVS,
 QEMU and DPDK to keep image size smaller.

@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation, AT&T and others.
 
-.. _vsperf-installation:
+.. _vineperf-installation:
 
 ======================
 Installing ViNePerf
@@ -130,7 +130,7 @@ Changelog of vloop-vnf:
 
     * version with development tools required for build of DPDK and l2fwd
 
-.. _vsperf-installation-script:
+.. _vineperf-installation-script:
 
 Installation
 ------------

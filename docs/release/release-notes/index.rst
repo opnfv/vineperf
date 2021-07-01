@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Intel Corporation and others.
 
-.. _vswitchperf-releasenotes:
+.. _vineperf-releasenotes:
 
 ==================================================
 ViNePerf Release Notes

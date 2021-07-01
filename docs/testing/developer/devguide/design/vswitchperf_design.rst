@@ -112,7 +112,7 @@ Configuration of PATHS dictionary
 ---------------------------------
 
 ViNePerf uses external tools like Open vSwitch and Qemu for execution of testcases. These
-tools may be downloaded and built automatically (see :ref:`vsperf-installation-script`)
+tools may be downloaded and built automatically (see :ref:`vineperf-installation-script`)
 or installed manually by user from binary packages. It is also possible to use a combination
 of both approaches, but it is essential to correctly set paths to all required tools.
 These paths are stored within a PATHS dictionary, which is evaluated before execution
