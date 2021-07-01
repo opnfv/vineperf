@@ -9,10 +9,9 @@ OPNFV VswitchPerf or OPNFV VSPerf to Anuket ViNePerf
 ****************************************************
 
 .. toctree::
-   :numbered:
    :maxdepth: 2
 
-   renaming.rst
+   renaming
 
 Build date: |today|
 

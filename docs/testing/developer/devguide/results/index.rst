@@ -7,9 +7,8 @@ ViNePerf Results
 ****************
 
 .. toctree::
-   :numbered:
    :maxdepth: 3
 
-   scenario.rst
-   results.rst
-   osk8s.rst
+   scenario
+   results
+   osk8s

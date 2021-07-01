@@ -17,7 +17,6 @@ Anuket ViNePerf
    renaming/index
    testing/developer/devguide/index
    testing/developer/devguide/results/index
-   testing/user/userguide/index
    testing/user/configguide/index
    lma/index
    openstack/index

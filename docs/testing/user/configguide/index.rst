@@ -4,6 +4,9 @@
 
 .. Anuket ViNePerf Documentation master file.
 
+.. _vineperf-configguide:
+.. _vineperf-userguide:
+
 *************************************
 ViNePerf Configuration and User Guide
 *************************************
