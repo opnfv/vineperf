@@ -103,6 +103,7 @@ class Trex(ITrafficGenerator):
         self._stlclient = None
         self._verification_params = None
         self._show_packet_data = False
+        self._trial_results = []
 
     def show_packet_info(self, packet_a, packet_b):
         """
@@ -564,6 +565,29 @@ class Trex(ITrafficGenerator):
             result[ResultsConstants.CAPTURE_TX] = stats['capture_tx']
         if 'capture_rx' in stats:
             result[ResultsConstants.CAPTURE_RX] = stats['capture_rx']
+        # Write all per-trial results to a file
+        filec = os.path.join(settings.getValue('RESULTS_PATH'), 'trex_pertrial.csv')
+
+        ports = [0, 1]
+        with open(filec, 'a') as fcp:
+            fcp.write("frame_size,port,rx_pkts,tx_pkts,rx_bytes,tx_bytes,"+
+                      "rx_pps,tx_pps,rx_bps,tx_bps\n")
+            for key in self._trial_results:
+                for ph in ports:
+                    stats = self._trial_results[key][ph]
+                    tx_pkts = stats['opackets']
+                    rx_pkts = stats['ipackets']
+                    tx_bytes = stats['obytes']
+                    rx_bytes = stats['ibytes']
+                    rx_pps = stats['rx_pps']
+                    tx_pps = stats['tx_pps']
+                    rx_bps = stats['rx_bps']
+                    tx_bps = stats['tx_bps']
+                    fcp.write("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}\n"
+                              .format(key,ph,rx_pkts,tx_pkts,rx_bytes,
+                                      tx_bytes,rx_pps,tx_pps,rx_bps,tx_bps)
+
+
         return result
 
     def learning_packets(self, traffic):
@@ -595,6 +619,7 @@ class Trex(ITrafficGenerator):
         """
         threshold = settings.getValue('TRAFFICGEN_TREX_RFC2544_TPUT_THRESHOLD')
         max_repeat = settings.getValue('TRAFFICGEN_TREX_RFC2544_MAX_REPEAT')
+        frame_size = traffic['l2']['framesize']
         loss_verification = settings.getValue('TRAFFICGEN_TREX_RFC2544_BINARY_SEARCH_LOSS_VERIFICATION')
         if loss_verification:
             self._logger.info("Running Binary Search with Loss Verification")
@@ -606,8 +631,10 @@ class Trex(ITrafficGenerator):
         right = boundaries['right']
         center = boundaries['center']
         self._logger.info('Starting RFC2544 trials')
+        results = []
         while (right - left) > threshold:
             stats = self.generate_traffic(new_params, duration)
+            results.append(copy.deepcopy(stats))
             test_lossrate = ((stats["total"]["opackets"] - stats[
                 "total"]["ipackets"]) * 100) / stats["total"]["opackets"]
             if stats["total"]["ipackets"] == 0:
@@ -645,6 +672,7 @@ class Trex(ITrafficGenerator):
                 new_params = copy.deepcopy(traffic)
                 new_params['frame_rate'] = center
             iteration += 1
+        self.trial_results[frame_size] = results
         return stats_ok
 
     def send_cont_traffic(self, traffic=None, duration=30):
