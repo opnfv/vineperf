@@ -1,4 +1,4 @@
-# Copyright 2020 University Of Delhi.
+# Copyright 202a Spirent Communications, University Of Delhi.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -55,8 +55,11 @@ class Papi(IPod):
         namespace = 'default'
         pod_manifests = S.getValue('POD_MANIFEST_FILEPATH')
         pod_count = int(S.getValue('POD_COUNT'))
-        #namespace = 'vswitchperf'
-        # replace_namespace(api, namespace)
+        if S.hasValue('POD_NAMESPACE'):
+            namespace = S.getValue('POD_NAMESPACE')
+        else:
+            namespace = 'default'
+        dep_pod_list = []
 
         # sriov configmap
         if S.getValue('PLUGIN') == 'sriov':
@@ -89,8 +92,9 @@ class Papi(IPod):
         api = client.CoreV1Api()
         
         for count in range(pod_count):
+            dep_pod_info = {}
             pod_manifest = load_manifest(pod_manifests[count])
-
+            dep_pod_info['name'] = pod_manifest["metadata"]["name"]
             try:
                 response = api.create_namespaced_pod(namespace, pod_manifest)
                 self._logger.info(str(response))
@@ -98,7 +102,41 @@ class Papi(IPod):
             except ApiException as err:
                 raise Exception from err
 
-        time.sleep(12)
+            # Wait for the pod to start
+            time.sleep(5)
+            status = "Unknown"
+            count = 0
+            while True:
+                if count == 10:
+                    break
+                try:
+                    response = api.read_namespaced_pod_status(dep_pod_info['name'],
+                            namespace)
+                    status = response.status.phase
+                except ApiException as err:
+                    raise Exception from err
+                if (status == "Running"
+                        or status == "Failed"
+                        or status == "Unknown"):
+                    break
+                else:
+                    time.sleep(5)
+                    count = count + 1
+            # Now Get the Pod-IP
+            try:
+                response = api.read_namespaced_pod_status(dep_pod_info['name'],
+                        namespace)
+                dep_pod_info['pod_ip'] = response.status.pod_ip
+            except ApiException as err:
+                raise Exception from err
+            dep_pod_info['namespace'] = namespace
+            dep_pod_list.append(dep_pod_info)
+            cmd = ['cat', '/etc/podnetinfo/annotations']
+            execute_command(api, dep_pod_info, cmd)
+        
+        S.setValue('POD_LIST',dep_pod_list)
+        return dep_pod_list
+
 
     def terminate(self):
         """
