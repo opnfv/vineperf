@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c42fbb52_cbd8882d",
+        "filename": "tools/k8s/cluster-deployment/uscni/userspace-cni-daemonset.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7559
+      },
+      "writtenOn": "2021-08-10T14:48:52Z",
+      "side": 1,
+      "message": "Can we please tag this to some specific version? We do not have a release yet for this image. So, we can keep it `vlakelsealpha1` or something.",
+      "range": {
+        "startLine": 28,
+        "startChar": 21,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "f1737f24bcc72b08bc13728b56f8b3f50edcff03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93266bdd_a56067dd",
+        "filename": "tools/k8s/cluster-deployment/uscni/userspace-cni-daemonset.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7559
+      },
+      "writtenOn": "2021-08-10T14:48:52Z",
+      "side": 1,
+      "message": "This Daemonset will not run if the image does not exist on the node. For instance if any end-user wishes to run weekly benchmarks on ephemeral kubernetes cluster then they will have to add extra command to pull this image in there CI pipelines.\n\nSuggested change: `imagePullPolicy: IfNotPresent`",
+      "revId": "f1737f24bcc72b08bc13728b56f8b3f50edcff03",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
