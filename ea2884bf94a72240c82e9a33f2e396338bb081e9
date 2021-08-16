@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c98ca27b_e711aee0",
+        "filename": "tools/pkt_gen/trex/trex_client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 7559
+      },
+      "writtenOn": "2021-08-16T16:45:22Z",
+      "side": 1,
+      "message": "We are missing a comma here.",
+      "range": {
+        "startLine": 579,
+        "startChar": 44,
+        "endLine": 579,
+        "endChar": 50
+      },
+      "revId": "ea2884bf94a72240c82e9a33f2e396338bb081e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
