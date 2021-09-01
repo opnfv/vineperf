@@ -398,7 +398,8 @@ class TestCase(object):
 
                         # dump vswitch flows before they are affected by VNF termination
                         if not self._vswitch_none:
-                            self._vswitch_ctl.dump_vswitch_connections()
+                            if not S.getValue('CLEAN_OUTPUT'):
+                                self._vswitch_ctl.dump_vswitch_connections()
 
                     # garbage collection for case that TestSteps modify existing deployment
                     self.step_stop_vnfs()
@@ -413,7 +414,11 @@ class TestCase(object):
                                                             self._testcase_start_time))
         logging.info("Testcase execution time: %s", self._testcase_run_time)
         # report test results
+        if S.getValue('CLEAN_OUTPUT'):
+            print('BEGIN OF THE RESULTS')
         self.run_report()
+        if S.getValue('CLEAN_OUTPUT'):
+            print('END OF THE RESULTS')
 
     def _append_results(self, results):
         """

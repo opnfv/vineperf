@@ -136,7 +136,15 @@ class Trex(ITrafficGenerator):
         else:
             raise RuntimeError('T-Rex: Trex host not defined')
 
-        ping = subprocess.Popen(cmd_ping, shell=True, stderr=subprocess.PIPE)
+        if settings.getValue('CLEAN_OUTPUT'):
+            ping = subprocess.Popen(cmd_ping,
+                                    shell=True,
+                                    stdout=subprocess.DEVNULL,
+                                    stderr=subprocess.PIPE)
+        else:
+            ping = subprocess.Popen(cmd_ping,
+                                    shell=True,
+                                    stderr=subprocess.PIPE)
         output, error = ping.communicate()
 
         if ping.returncode:
@@ -152,9 +160,16 @@ class Trex(ITrafficGenerator):
                           self._trex_base_dir + "t-rex-64"
 
 
-        find_trex = subprocess.Popen(cmd_find_trex,
-                                     shell=True,
-                                     stderr=subprocess.PIPE)
+        if settings.getValue('CLEAN_OUTPUT'):
+            find_trex = subprocess.Popen(cmd_find_trex,
+                                         shell=True,
+                                         stdout=subprocess.DEVNULL,
+                                         stderr=subprocess.PIPE)
+        else:
+            find_trex = subprocess.Popen(cmd_find_trex,
+                                         shell=True,
+                                         stderr=subprocess.PIPE)
+
         output, error = find_trex.communicate()
 
         if find_trex.returncode:
@@ -165,8 +180,12 @@ class Trex(ITrafficGenerator):
                 % (self._trex_host_ip_addr, self._trex_base_dir))
 
         try:
-            self._stlclient = STLClient(username=self._trex_user, server=self._trex_host_ip_addr,
-                                        verbose_level='info')
+            if settings.getValue('CLEAN_OUTPUT'):
+                self._stlclient = STLClient(username=self._trex_user, server=self._trex_host_ip_addr,
+                                            verbose_level='error')
+            else:
+                self._stlclient = STLClient(username=self._trex_user, server=self._trex_host_ip_addr,
+                                            verbose_level='info')
             self._stlclient.connect()
         except STLError:
             raise RuntimeError('T-Rex: Cannot connect to T-Rex server. Please check if it is '
@@ -392,7 +411,8 @@ class Trex(ITrafficGenerator):
             self._stlclient.set_port_attr(my_ports, promiscuous=True)
 
         packet_1, packet_2 = self.create_packets(traffic, ports_info)
-        self.show_packet_info(packet_1, packet_2)
+        if not settings.getValue('CLEAN_OUTPUT'):
+            self.show_packet_info(packet_1, packet_2)
         stream_1, stream_2, stream_1_lat, stream_2_lat = Trex.create_streams(packet_1, packet_2, traffic)
         self._stlclient.add_streams(stream_1, ports=[0])
         self._stlclient.add_streams(stream_2, ports=[1])
