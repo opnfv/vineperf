@@ -26,9 +26,9 @@ import pexpect
 
 from conf import settings
 from src.ovs import OFBridge, flow_key, flow_match
-from vswitches.vswitch import IVSwitch
 from tools import tasks
 from tools.module_manager import ModuleManager
+from vswitches.vswitch import IVSwitch
 
 # enable caching of flows if their number exceeds given limit
 _CACHE_FLOWS_LIMIT = 10
@@ -100,6 +100,8 @@ class IVSwitchOvs(IVSwitch, tasks.Process):
 
         try:
             tasks.Process.start(self)
+            if settings.getValue('CLEAN_OUTPUT'):
+                self._disable_console_output()
             self.relinquish()
         except (pexpect.EOF, pexpect.TIMEOUT) as exc:
             self._logger.error("Exception during VSwitch start.")
@@ -469,6 +471,15 @@ class IVSwitchOvs(IVSwitch, tasks.Process):
 
         self._logger.info('System reset after last run.')
 
+    def _disable_console_output(self):
+        """
+        Configure vswitch to disable console output
+        """
+        ovsappctl_tool_bin = settings.getValue('TOOLS')['ovs-appctl']
+        tasks.run_task(['sudo', ovsappctl_tool_bin, 'vlog/set', ' console:off'],
+                       self._logger,
+                       'Turning off the logs ...')
+
     def _start_ovsdb(self):
         """Start ``ovsdb-server`` instance.
 
@@ -483,13 +494,22 @@ class IVSwitchOvs(IVSwitch, tasks.Process):
 
         ovsdb_server_bin = settings.getValue('TOOLS')['ovsdb-server']
 
-        tasks.run_background_task(
-            ['sudo', ovsdb_server_bin,
-             '--remote=punix:%s' % os.path.join(settings.getValue('TOOLS')['ovs_var_tmp'], 'db.sock'),
-             '--remote=db:Open_vSwitch,Open_vSwitch,manager_options',
-             '--pidfile=' + self._ovsdb_pidfile_path, '--overwrite-pidfile'],
-            self._logger,
-            'Starting ovsdb-server...')
+        if settings.getValue('CLEAN_OUTPUT'):
+            tasks.run_background_task(
+                ['sudo', ovsdb_server_bin,
+                 '--remote=punix:%s' % os.path.join(settings.getValue('TOOLS')['ovs_var_tmp'], 'db.sock'),
+                 '--remote=db:Open_vSwitch,Open_vSwitch,manager_options',
+                 '--pidfile=' + self._ovsdb_pidfile_path, '--overwrite-pidfile', '--verbose=off'],
+                self._logger,
+                'Starting ovsdb-server...')
+        else:
+            tasks.run_background_task(
+                ['sudo', ovsdb_server_bin,
+                 '--remote=punix:%s' % os.path.join(settings.getValue('TOOLS')['ovs_var_tmp'], 'db.sock'),
+                 '--remote=db:Open_vSwitch,Open_vSwitch,manager_options',
+                 '--pidfile=' + self._ovsdb_pidfile_path, '--overwrite-pidfile'],
+                self._logger,
+                'Starting ovsdb-server...')
 
     def _kill_ovsdb(self):
         """Kill ``ovsdb-server`` instance.

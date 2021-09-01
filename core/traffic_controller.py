@@ -164,6 +164,8 @@ class TrafficController(object):
             for(key, value) in list(item.items()):
                 logging.info("         Key: " + str(key) +
                              ", Value: " + str(value))
+                if settings.getValue('CLEAN_OUTPUT'):
+                    print(str(key) + ", " + str(value))
 
     def get_results(self):
         """IResult interface implementation.

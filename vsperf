@@ -747,6 +747,13 @@ def main():
     # if required, handle list-* operations
     handle_list_options(args)
 
+    # Using verbosity to run 'clean' test-runs.
+    if args['verbosity']:
+        settings.setValue('VERBOSITY', args['verbosity'])
+        settings.setValue('CLEAN_OUTPUT', True)
+    else:
+        settings.setValue('CLEAN_OUTPUT', False)
+
     configure_logging(settings.getValue('VERBOSITY'))
 
     # CI build support
