@@ -77,3 +77,4 @@ tags
 !/src/l2fwd/Makefile
 
 docs/_build/*
+.DS_Store
