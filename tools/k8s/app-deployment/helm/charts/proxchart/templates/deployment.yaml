@@ -1,0 +1,30 @@
+{{- if eq .Values.kind "Deployment"}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prox
+  annotations:
+    k8s.v1.cni.cncf.io/networks: "{{- join "\",\"" .Values.extraInterfaces | toYaml | nindent 8}}"
+spec:
+  selector:
+    matchLabels:
+      app: prox
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: prox
+    spec:
+      containers:
+      - name: prox
+        image: opnfv/rapid:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+      - name: nginx
+        image: nginx:alpine
+        ports:
+          - containerPort: 80
+      nodeSelector: 
+        {{- .Values.nodeSelector.matchLables | toYaml | nindent 12 }}
+{{- end }}

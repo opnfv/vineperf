@@ -1,0 +1,25 @@
+{{- if eq .Values.kind "DaemonSet"}}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: testpmd
+  annotations:
+    k8s.v1.cni.cncf.io/networks: "{{- join "\",\"" .Values.extraInterfaces }}"
+spec:
+  selector:
+    matchLabels:
+      app: testpmd
+  template:
+    metadata:
+      labels:
+        app: testpmd
+    spec:
+      containers:
+      - name: testpmd
+        image: ovsperf/dpdkfwd:lakelse
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+      nodeSelector: 
+        {{- .Values.nodeSelector.matchLables | toYaml | nindent 12 }}
+{{- end }}
