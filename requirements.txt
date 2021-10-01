@@ -7,7 +7,7 @@
 
 pexpect>=4.0
 tox==1.8.1
-jinja2==2.7.3
+jinja2
 xmlrunner==1.7.7
 requests>=2.14.2
 netaddr==0.7.18
@@ -40,3 +40,4 @@ pyzmq>=16.0
 six>=1.9.0
 timeout-decorator>=0.4.0
 kubernetes
+future
