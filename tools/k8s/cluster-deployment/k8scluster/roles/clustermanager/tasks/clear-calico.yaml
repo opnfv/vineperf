@@ -1,0 +1,10 @@
+---
+
+- name: Delete Calico
+  k8s:
+    state: absent
+    definition: '{{ item }}'
+  with_items: '{{ lookup("url", "https://docs.projectcalico.org/manifests/calico.yaml", split_lines=False) | from_yaml_all | list }}'
+  when: item is not none
+
+

@@ -24,6 +24,12 @@ worker ansible_host={enter-master-ip}  ansible_connection=ssh ansible_ssh_user={
 ```
 In this configuration file, connection details should be filled in. In case more nodes within the cluster are needed, add lines as necessary to the workers group within the `hosts` file.
 
+Install the kubernetes.core module for ansible-playbook. This module is required as prerequisite to run the playbook.
+
+```
+ansible-galaxy collection install kubernetes.core
+```
+
 
 ### Usage
 In order to use the script, download or clone [this repository] (https://gerrit.opnfv.org/gerrit/vswitchperf) to the root of what will be the master node.
@@ -52,6 +58,13 @@ To deploy only CNI plugins
 ```
 ansible-playbook k8sclustermanagement.yml -i hosts_garr –tags “cni” 
 ```
+
+To deploy Danm CNI
+
+```
+ansible-playbook k8sclustermanagement.yml -i hosts_garr –tags “cni, danm” 
+```
+Specifying danm tag only deploys Danm and skips Multus.
 
 
 
