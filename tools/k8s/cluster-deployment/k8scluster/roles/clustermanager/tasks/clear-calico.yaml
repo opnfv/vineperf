@@ -1,0 +1,8 @@
+---
+
+- name: Delete Calico
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'calico-daemonset.yaml') }}"
+
+

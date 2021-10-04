@@ -1,0 +1,54 @@
+---
+
+- name: Delete DanmNet flannel conf
+  command: sudo rm -f /etc/cni/net.d/flannel.conf
+
+- name: Delete DanmNet and DanmEp CRD's
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'danm-crds.yaml') }}"
+
+- name: Delete Danm service account
+  k8s:
+    state: absent
+    kind: ServiceAccount
+    name: danm
+    namespace: kube-system
+
+- name: Delete Danm cni conf
+  command: sudo rm -f  /etc/cni/net.d/00-danm.conf
+
+- name: Delete Danm cni kubeconfig
+  command: sudo rm -f /etc/cni/net.d/danm-kubeconfig
+
+- name: Delete Danm rbac
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'danm-rbac.yaml') }}"
+
+- name: Delete Danm cni plugins
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'danm-cni-plugins.yaml') }}"
+
+- name: Delete Danm netwatcher
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'danm-netwatcher-daemonset.yaml') }}"
+
+- name: Get CA Bundle
+  shell: kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"'
+  register: danm_ca_bundle
+
+- name: Generate webhook deployment
+  template:
+    src: danm-webhook.yaml
+    dest: /tmp/danm-webhook.yaml
+    mode: 0644
+  vars:
+    ca_bundle: "{{ danm_ca_bundle.stdout }}"
+
+- name: Delete Danm webhook
+  k8s:
+    state: absent
+    src: /tmp/danm-webhook.yaml
