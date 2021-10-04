@@ -1,0 +1,125 @@
+---
+
+- name: Clean Danm
+  import_tasks: clear-danm.yaml
+
+- name: Deploy DanmNet CRD
+  k8s:
+    state: present
+    apply: yes
+    definition: '{{ item }}'
+  with_items: '{{ lookup("url", "https://raw.githubusercontent.com/nokia/danm/v4.3.0/integration/crds/lightweight/DanmNet.yaml", split_lines=False) | from_yaml_all | list }}'
+  when: item is not none
+
+- name: Deploy DanmEp CRD
+  k8s:
+    state: present
+    apply: yes
+    definition: '{{ item }}'
+  with_items: '{{ lookup("url", "https://raw.githubusercontent.com/nokia/danm/v4.3.0/integration/crds/lightweight/DanmEp.yaml", split_lines=False) | from_yaml_all | list }}'
+  when: item is not none
+
+- name: Create Danm service account
+  command: kubectl create --namespace kube-system serviceaccount danm
+
+- name: Create Danm cni conf
+  copy:
+    dest: /etc/cni/net.d/00-danm.conf
+    mode: 0644
+    content: |
+      {
+        "cniVersion": "0.3.1",
+        "name": "meta_cni",
+        "type": "danm",
+        "kubeconfig": "/etc/cni/net.d/danm-kubeconfig",
+        "cniDir": "/etc/cni/net.d",
+        "namingScheme": "awesome",
+      }
+  become: yes
+
+- name: Get Cluster name
+  command: kubectl config view -o jsonpath='{.clusters[0].name}'
+  register: cluster_name
+
+- name: Get Cluster Server
+  command: kubectl config view -o jsonpath='{.clusters[0].cluster.server}'
+  register: cluster_server
+
+- name: Get Cluster CA certification
+  command: kubectl config view --flatten -o jsonpath='{.clusters[0].cluster.certificate-authority-data}'
+  register: cluster_ca_certificate
+
+- name: Get Danm Secret Name
+  command: kubectl get --namespace kube-system -o jsonpath='{.secrets[0].name}' serviceaccounts danm
+  register: danm_secret_name
+
+- name: Get Danm Service Account Token
+  shell: kubectl get --namespace kube-system secrets {{ danm_secret_name.stdout }} -o jsonpath='{.data.token}' | base64 -d
+  register: danm_service_account_token
+
+- name: Create Danm kubeconfig
+  copy:
+    dest: /etc/cni/net.d/danm-kubeconfig
+    mode: 0644
+    content: |
+      apiVersion: v1
+      kind: Config
+      current-context: default
+      clusters:
+      - cluster:
+          certificate-authority-data: {{ cluster_ca_certificate.stdout }}
+          server: {{ cluster_server.stdout }}
+        name: {{ cluster_name.stdout }}
+      contexts:
+      - context:
+          cluster: {{ cluster_name.stdout }}
+          user: danm
+        name: default
+      users:
+      - name: danm
+        user:
+          token: {{ danm_service_account_token.stdout }}
+      preferences: {}
+  become: yes
+
+- name: Deploy Danm rbac
+  k8s:
+    state: present
+    apply: yes
+    definition: '{{ item }}'
+  with_items: '{{ lookup("url", "https://raw.githubusercontent.com/nokia/danm/v4.3.0/integration/cni_config/danm_rbac.yaml", split_lines=False) | from_yaml_all | list }}'
+  when: item is not none
+  
+- name: Deploy Danm cni plugins
+  k8s:
+    state: present
+    apply: yes
+    wait: yes
+    definition: "{{ lookup('file', 'danm-cni-plugins.yaml') }}"
+
+- name: Deploy Danm netwatcher
+  k8s:
+    state: present
+    apply: yes
+    definition: "{{ lookup('file', 'danm-netwatcher-daemonset.yaml') }}"
+
+- name: Create Danm webhook signed cert
+  script: danm-webhook-create-signed-cert.sh
+
+- name: Get CA Bundle
+  shell: kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"'
+  register: danm_ca_bundle
+
+- name: Generate webhook deployment
+  template:
+    src: danm-webhook.yaml
+    dest: /tmp/danm-webhook.yaml
+    mode: 0644
+  vars:
+    ca_bundle: "{{ danm_ca_bundle.stdout }}"
+
+- name: Deploy Danm webhook
+  k8s:
+    state: present
+    apply: yes
+    src: /tmp/danm-webhook.yaml

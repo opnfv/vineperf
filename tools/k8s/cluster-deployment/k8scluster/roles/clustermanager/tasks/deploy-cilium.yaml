@@ -1,0 +1,19 @@
+---
+
+- name: Add cilium helm repo
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: "https://helm.cilium.io/"
+
+- name: Clean Cilium
+  import_tasks: clear-cilium.yaml
+
+- name: Deploy cilium Chart
+  kubernetes.core.helm:
+   name: cilium
+   namespace: kube-system
+   chart_ref: cilium/cilium
+   wait: yes
+   values:
+    cni:
+      exclusive: false

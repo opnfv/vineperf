@@ -1,0 +1,12 @@
+---
+
+- name: Clean Contiv
+  import_tasks: clear-contiv.yaml
+
+- name: Deploy Contiv
+  k8s:
+    state: present
+    apply: yes
+    definition: '{{ item }}'
+  with_items: '{{ lookup("url", "https://raw.githubusercontent.com/contiv/vpp/v3.4.2/k8s/contiv-vpp.yaml", split_lines=False) | from_yaml_all | list }}'
+  when: item is not none

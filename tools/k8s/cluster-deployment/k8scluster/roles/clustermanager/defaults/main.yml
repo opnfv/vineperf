@@ -26,3 +26,5 @@ token_file: $HOME/log_init.txt
 
 
 PIP_executable_version: pip3.6
+helm_version: v3.7.0
+openshift_version: 0.11.1

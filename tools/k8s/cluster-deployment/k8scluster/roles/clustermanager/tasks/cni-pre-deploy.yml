@@ -3,7 +3,19 @@
   pip:
     name: openshift
     executable: "{{ PIP_executable_version }}"
+    version: "{{ openshift_version }}"
   when: inventory_hostname in groups['master']
+  become: yes
+
+- name: Install Helm
+  unarchive:
+    src: "https://get.helm.sh/helm-{{ helm_version }}-linux-amd64.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+  become: yes
+
+- name: Move helm to PATH
+  command: mv /tmp/linux-amd64/helm /usr/local/bin/helm
   become: yes
 
 - name: Check whether /etc/cni/net.d/ exists
