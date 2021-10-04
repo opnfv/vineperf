@@ -1,0 +1,7 @@
+---
+
+- name: Delete cilium
+  kubernetes.core.helm:
+   name: cilium
+   namespace: kube-system
+   state: absent
