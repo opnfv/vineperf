@@ -1,0 +1,10 @@
+---
+
+- name: Clean Contiv
+  import_tasks: clear-contiv.yaml
+
+- name: Deploy Contiv
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'contiv-daemonset.yaml') }}"
+    apply: yes

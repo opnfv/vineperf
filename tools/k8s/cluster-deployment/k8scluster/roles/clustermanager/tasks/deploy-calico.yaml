@@ -1,0 +1,10 @@
+---
+
+- name: Clean Calico
+  import_tasks: clear-calico.yaml
+
+- name: Deploy Calico
+  k8s:
+    state: present
+    apply: yes
+    definition: "{{ lookup('file', 'calico-daemonset.yaml') }}"

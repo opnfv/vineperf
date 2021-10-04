@@ -1,0 +1,8 @@
+---
+
+- name: Delete Contiv
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', 'contiv-daemonset.yaml') }}"
+
+
