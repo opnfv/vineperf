@@ -3,6 +3,36 @@
 .. (c) OPNFV, Intel Corporation, Spirent Communications, AT&T and others.
 
 
+Anuket Lakelse Release
+======================
+
+* Supported Software Versions - DPDK:20.05, OVS:2.14.0, VPP:21.01, QEMU:3.1.1, Trex:2.86, PROX:Kali
+
+* Traffic generator
+
+    * Support for DPPD-Prox is added. This is the sixth traffic generator supported by ViNeperf.
+    * T-Rex statistics is improved to provide better latency data.
+
+* Kubernetes
+
+    * ViNePerf container and corresponding pod-deployment file is included.
+    * A tool to deploy pods via helm-charts is added. This tool also extracts all the deployed
+      pods and corresponding service information.
+    * Deployment of different CNIs (userspace, sriov, calico, cilium, multus, and danm) are supported.
+    * Custom DPPD-Prox and T-Rex containers are added - source files.
+    * l2fwd/testpmd container is included - source files.
+
+* Additional Features
+
+    * Run ViNePerf as pod in Kubernetes. Results-only on-screen output mode is added for this usecase.
+    * Dedicated 'k8s' mode is included for Kubernetes dataplane testing.
+
+* Miscellaneous
+
+    * More changes are made to be consistent with the name change from VSwitchPerf to ViNePerf.
+    * K8S Dataplane Benchmarking work is accepted to be published in IEEE Globecom 2021.
+
+
 Anuket Kali Release
 ===================
 
