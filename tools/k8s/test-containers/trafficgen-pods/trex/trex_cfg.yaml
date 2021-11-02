@@ -1,0 +1,10 @@
+- port_limit    : 2
+  version       : 2
+  c             : 8
+  interfaces    : ["--vdev=net_memif0,socket=/var/lib/cni/usrspcni/memif--net1.sock,role=slave,id=0", "--vdev=net_memif1,socket=/var/lib/cni/usrspcni/memif--net2.sock,role=slave,id=1"]   # list of the interfaces 
+  port_info     :  # set eh mac addr
+ 
+                 - ip         : 1.1.1.1
+                   default_gw : 2.2.2.2
+                 - ip         : 2.2.2.2
+                   default_gw : 1.1.1.1
