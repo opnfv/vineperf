@@ -19,13 +19,13 @@ First step is achieved through the tool present in *tools/k8s/cluster-deployment
 User can choose to perform all the remaining steps (2, 3, and 4), by running the following command.
 
 .. code-block:: console
-    
+
     vsperf --k8s --conf-file k8s.conf pcp_tput
 
 User can also chose to perform only steps 3 and 4, by choosing to run following test cases.
 
 .. code-block:: console
-    
+
     vsperf --k8s --conf-file k8s.conf pcp_evs_tput
     or
     vsperf --k8s --conf-file k8s.conf pccp_evs_tput
@@ -55,3 +55,13 @@ In Kali release, two testscases were added:
 2. pccp_evs_tput: Two-Pod throughput test, where virtual switch is externally deployed and managed.
 
 In future releases, more testcases for kubernetes will be added.
+
+
+.. toctree::
+   :numbered:
+   :maxdepth: 2
+
+   helm.rst
+   artifacts.rst
+
+Build date: |today|

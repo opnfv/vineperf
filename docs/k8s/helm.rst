@@ -2,8 +2,6 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) Anuket, Spirent, AT&T, Ixia  and others.
 
-.. Anuket ViNePerf Documentation master file.
-
 ============================================================
 Automated deployment of helm charts with python
 ============================================================
