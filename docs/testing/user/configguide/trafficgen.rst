@@ -927,6 +927,65 @@ statistics is driven by configuration option ``TRAFFICGEN_TREX_LATENCY_PPS`` as 
 
     TRAFFICGEN_TREX_LATENCY_PPS = 1000
 
+
+DPPD-PROX
+---------
+
+Installation
+~~~~~~~~~~~~
+
+The library to interact with DPPD-Prox traffic generator is installed using the following commands:
+
+
+.. code-block:: console
+
+    cd systems/pythonlibs
+    ./add_prox.sh
+
+Configuration
+~~~~~~~~~~~~~
+
+The configuration starts with setting the TRAFFICGEN parameter to 'Prox'.
+Prox specific configurations can be categorized as below.
+
+The configuration of cpu-cores to run the processes is very important in prox.
+Following three parameters constitutes cpu-cores configuration.
+Restrict the latency cores to just 1.
+
+.. code-block:: console
+
+    TRAFFICGEN_PROX_MASTER_CORES = "10"
+    TRAFFICGEN_PROX_GENERATOR_CORES = "11,12,13"
+    TRAFFICGEN_PROX_LATENCY_CORES = "14"
+
+There are 3 files that are used as part of configuration to interact with Prox.
+The generator-config file is the file that was used to run Prox.
+The environment file (.env) defines role-specifc configuration for Prox instances.
+A role could be a generator, swap, sink, etc.
+The .test file defines test-specific configurations.
+
+.. code-block:: console
+
+    TRAFFICGEN_PROX_GENERATOR_CONFIG_FILENAME = "vineperf-baremetal.cfg"
+    TRAFFICGEN_PROX_ENV_FILE = "rapid-vineperf-baremetal.env"
+    TRAFFICGEN_PROX_TEST_FILE = "tst009.test"
+
+These configurations enables to connect to running Prox traffic generator.
+
+.. code-block:: console
+
+    TRAFFICGEN_PROX_GENERATOR_USER = "root"
+    TRAFFICGEN_PROX_GENERATOR_KEYFILE = "node4priv.pem"
+
+Finally, some minimal traffic-specific configurations that are self-explanatory.
+    
+.. code-block:: console
+
+    TRAFFICGEN_PROX_PKTSIZES = "[64]"
+    TRAFFICGEN_PROX_LATENCY_BUCKETS = "20"
+    TRAFFICGEN_PROX_RUNTIME='10'
+
+
 SR-IOV and Multistream layer 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 T-Rex by default only accepts packets on the receive side if the destination mac matches the

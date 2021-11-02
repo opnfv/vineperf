@@ -55,3 +55,13 @@ In Kali release, two testscases were added:
 2. pccp_evs_tput: Two-Pod throughput test, where virtual switch is externally deployed and managed.
 
 In future releases, more testcases for kubernetes will be added.
+
+
+.. toctree::
+   :numbered:
+   :maxdepth: 2
+
+   helm.rst
+   artifacts.rst
+
+Build date: |today|
