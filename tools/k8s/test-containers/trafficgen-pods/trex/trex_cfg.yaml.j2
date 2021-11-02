@@ -1,0 +1,8 @@
+- port_limit    : 2
+  version       : 2
+  interfaces    : ["--vdev=net_memif0,socket={{data.if1}},role=master", "--vdev=net_memif1,socket={{data.if2}},role=master"]   # list of the interfaces
+  port_info       :  # set eth mac addr
+          - dest_mac        :   "3c:fd:fe:b4:41:09"  # port 0
+            src_mac         :   "3c:fd:fe:b4:41:08"
+          - dest_mac        :   "3c:fd:fe:b4:41:08"  # port 1
+            src_mac         :   "3c:fd:fe:b4:41:09"
