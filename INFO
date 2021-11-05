@@ -5,9 +5,9 @@ Lifecycle State: Mature
 Primary Contact: Sridhar Rao
 Project Lead: (Sridhar Rao) sridhar.rao@spirent.com
 Jira name vSwitch Characterization
-JIRA tag : VSPERF
-Repository: vswitchperf
-Mailing list tag: [vsperf]
+JIRA tag : VINEPERF
+Repository: vineperf
+Mailing list tag: [vineperf]
 IRC: Server:freenode.net Channel: #opnfv-vswitchperf
 
 Commiters:
