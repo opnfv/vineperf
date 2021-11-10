@@ -27,6 +27,7 @@ from kubernetes.client.rest import ApiException
 
 from conf import settings as S
 from pods.pod.pod import IPod
+from pods.papi import k8scmdrun as util
 
 class Papi(IPod):
     """
@@ -73,7 +74,7 @@ class Papi(IPod):
         group = 'k8s.cni.cncf.io'
         version = 'v1'
         kind_plural = 'network-attachment-definitions'
-        api = client.CustomObjectsApi() 
+        api = client.CustomObjectsApi()
         assert pod_count <= len(pod_manifests)
 
         for nad_filepath in S.getValue('NETWORK_ATTACHMENT_FILEPATH'):
@@ -113,13 +114,10 @@ class Papi(IPod):
                     status = response.status.phase
                 except ApiException as err:
                     raise Exception from err
-                if (status == "Running"
-                        or status == "Failed"
-                        or status == "Unknown"):
+                if status in ("Running", "Failed", "Unknown"):
                     break
-                else:
-                    time.sleep(5)
-                    count = count + 1
+                time.sleep(5)
+                count = count + 1
             # Now Get the Pod-IP
             try:
                 response = api.read_namespaced_pod_status(dep_pod_info['name'],
@@ -128,10 +126,11 @@ class Papi(IPod):
             except ApiException as err:
                 raise Exception from err
             dep_pod_info['namespace'] = namespace
-            dep_pod_list.append(dep_pod_info)
             cmd = ['cat', '/etc/podnetinfo/annotations']
-            execute_command(api, dep_pod_info, cmd)
-        
+            output = util.execute_command(api, dep_pod_info, cmd)
+            dep_pod_info['annotations'] = output
+            dep_pod_list.append(dep_pod_info)
+
         S.setValue('POD_LIST',dep_pod_list)
         return dep_pod_list
 

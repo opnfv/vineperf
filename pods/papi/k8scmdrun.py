@@ -16,8 +16,7 @@ Run commands inside the pod for post-deployment configuration
 """
 
 import re
-import os
-from kubernetes import client, config
+import sys
 from kubernetes.client.rest import ApiException
 from kubernetes.stream import stream
 
@@ -31,10 +30,10 @@ def execute_command(api_instance, pod_info, exec_command):
     try:
         resp = api_instance.read_namespaced_pod(name=name,
                                                 namespace='default')
-    except ApiException as e:
-        if e.status != 404:
-            print("Unknown error: %s" % e)
-            exit(1)
+    except ApiException as excep:
+        if excep.status != 404:
+            print("Unknown error: %s" % excep)
+            sys.exit(0)
     if not resp:
         print("Pod %s does not exist. Creating it..." % name)
         return -1
@@ -100,6 +99,7 @@ def get_sriov_interfaces(api_instance, podname, namespace):
                 elif 'name' in rout:
                     names.append(rout[5:])
     res = {names[i]: ifs[i] for i in range(len(names))}
+    return res
 
 def start_fowarding_app(api_instance, podname, namespace, appname):
     """
@@ -110,3 +110,4 @@ def start_fowarding_app(api_instance, podname, namespace, appname):
              'namespace': namespace}
     cmd = [appname, '&']
     response = execute_command(api_instance, pinfo, cmd)
+    return response
