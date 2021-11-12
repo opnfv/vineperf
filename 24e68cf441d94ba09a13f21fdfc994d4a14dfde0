@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57a97263_6f4e182e",
+        "filename": "tools/docker/test-containers/dpdk-forwarding-pods/l2l3fwd/l2fwd_eal_init.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2021-11-12T16:56:37Z",
+      "side": 1,
+      "message": "a text file with code?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "24e68cf441d94ba09a13f21fdfc994d4a14dfde0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
