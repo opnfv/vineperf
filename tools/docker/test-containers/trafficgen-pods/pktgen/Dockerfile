@@ -20,6 +20,8 @@ RUN cp bin/libnetutil_api.so /lib64/libnetutil_api.so; cp bin/libnetutil_api.h /
 
 ## Download and Build DPDK
 ##
+
+
 ENV DPDK_VER 21.02
 ENV DPDK_DIR /usr/src/dpdk-${DPDK_VER}
 WORKDIR /usr/src/
@@ -32,17 +34,17 @@ WORKDIR ${DPDK_DIR}
 COPY ./vhost_substitute.sh ./vhost_substitute.sh
 RUN ./vhost_substitute.sh
 
+EXPOSE 22 8474
+
 RUN yum install -y epel-release && yum install -y dnf
 RUN dnf install -y meson ninja-build
 RUN pip3 install pyelftools
 
 RUN meson build && ninja -C build && ninja -C build install && ldconfig
 
-EXPOSE 22 8474
-
 WORKDIR /usr/src/
 ENV PKG_CONFIG_PATH /usr/local/lib64/pkgconfig
 RUN git clone http://dpdk.org/git/apps/pktgen-dpdk
 RUN yum install -y libpcap libpcap-devel
-RUN cd pktgen-dpdk && make -j
-
+RUN yum install -y kernel-devel kernel-headers
+RUN cd pktgen-dpdk && git checkout tags/pktgen-21.02.0 && make -j
