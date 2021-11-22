@@ -13,7 +13,7 @@ RUN yum install -y pciutils iproute; yum clean all
 ## Download and Build APP-NetUtil
 ##
 WORKDIR /root/go/src/
-RUN go get github.com/openshift/app-netutil 2>&1 > /tmp/UserspaceDockerBuild.log || echo "Can ignore no GO files."
+RUN mkdir github.com && cd github.com && mkdir openshift && cd openshift && git clone https://github.com/openshift/app-netutil
 WORKDIR /root/go/src/github.com/openshift/app-netutil
 RUN make c_sample
 RUN cp bin/libnetutil_api.so /lib64/libnetutil_api.so; cp bin/libnetutil_api.h /usr/include/libnetutil_api.h

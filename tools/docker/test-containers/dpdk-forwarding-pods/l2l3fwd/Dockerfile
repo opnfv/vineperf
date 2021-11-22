@@ -77,7 +77,6 @@ FROM centos
 COPY --from=0 /usr/bin/dpdk-app /usr/bin/dpdk-app
 COPY --from=0 /usr/bin/l2fwd /usr/bin/l2fwd
 COPY --from=0 /usr/bin/l3fwd /usr/bin/l3fwd
-COPY --from=0 /usr/bin/testpmd /usr/bin/testpmd
 COPY --from=0 /lib64/libnetutil_api.so /lib64/libnetutil_api.so
 COPY --from=0 /usr/lib64/libnuma.so.1 /usr/lib64/libnuma.so.1
 COPY --from=0 /root/go/src/github.com/openshift/app-netutil/bin/c_sample /usr/bin/c_sample
