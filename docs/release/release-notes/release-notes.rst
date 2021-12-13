@@ -20,7 +20,7 @@ Anuket Lakelse Release
       pods and corresponding service information.
     * Deployment of different CNIs (userspace, sriov, calico, cilium, multus, and danm) are supported.
     * Custom DPPD-Prox and T-Rex containers are added - source files.
-    * l2fwd/testpmd container is included - source files.
+    * l2l3fwd and VPP containers are included to support service-chain testing usecases.
 
 * Additional Features
 

@@ -204,8 +204,7 @@ class TestCase(object):
 
         # If running in k8s mode.
         # This value is set in main vsperf file
-        self._k8s = S.getValue('K8S')
-        if self._k8s:
+        if S.getValue('K8S'):
             if S.getValue('EXT_VSWITCH'):
                 self._evfctl = extvswitchflctl.ExtVswitchFlowCtl()
 
