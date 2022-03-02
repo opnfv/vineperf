@@ -1,7 +1,7 @@
 # makefile to manage qemu package
 #
 
-# Copyright (c) 2015-2016 OPNFV and Intel Corporation.
+# Copyright (c) 2015-2022 Anuket, Intel Corporation, and The Linux Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ include ../mk/master.mk
 include ../package-list.mk
 
 WORK_DIR = qemu
+SUBMODULE_CONFIG_FILE = $(WORK_DIR)/.gitmodules
 TAG_DONE_FLAG = $(WORK_DIR)/.$(QEMU_TAG).done
 INSTALL_TARGET = force_make force_install
 CONFIG_CMD =
@@ -40,6 +41,9 @@ config $(WORK_DIR)/Makefile: $(WORK_DIR)/configure
 force_make: $(WORK_DIR)/Makefile
 	$(AT)cd $(WORK_DIR) && git pull $(QEMU_URL) $(QEMU_TAG)
 	$(AT)echo "git pull done"
+	$(AT)sed -i -e 's/https\:\/\/git.qemu.org\/git\/capstone\.git/https\:\/\/github.com\/capstone-engine\/capstone\.git/g' $(SUBMODULE_CONFIG_FILE)
+	$(AT)sed -i -e 's/https\:\/\/git.qemu.org\/git\/dtc\.git/https\:\/\/github.com\/qemu\/dtc\.git/g' $(SUBMODULE_CONFIG_FILE)
+	$(AT)sed -i -e 's/https\:\/\/git.qemu.org\/git\/keycodemapdb\.git/https\:\/\/github.com\/qemu\/keycodemapdb\.git/g' $(SUBMODULE_CONFIG_FILE)
 	$(AT)$(MAKE) -C $(WORK_DIR) $(MORE_MAKE_FLAGS)
 	@echo "Make done"
 
