@@ -108,7 +108,7 @@ class Trex(ITrafficGenerator):
         self._stlclient = None
         self._verification_params = None
         self._show_packet_data = False
-        self.trial_results = []
+        self.trial_results = {}
 
     def show_packet_info(self, packet_a, packet_b):
         """
@@ -521,8 +521,8 @@ class Trex(ITrafficGenerator):
 
         return stats
 
-    @staticmethod
-    def calculate_results(stats):
+    # @staticmethod
+    def calculate_results(self, stats):
         """Calculate results from Trex statistic
         """
         result = OrderedDict()
