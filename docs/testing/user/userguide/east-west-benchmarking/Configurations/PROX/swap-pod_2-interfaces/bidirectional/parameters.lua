@@ -1,0 +1,8 @@
+require "helper"
+name="Swap"
+eal="--socket-mem=256,0 --vdev=net_memif0,socket=/usrspcni/memif-b42cff2335c2-net1.sock --vdev=net_memif1,socket=/usrspcni/memif-b42cff2335c2-net2.sock"
+mcore="14"
+swapone="20"
+swaptwo="21"
+bucket_size_exp="11"
+heartbeat="60"
