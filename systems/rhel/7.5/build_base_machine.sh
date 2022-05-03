@@ -34,6 +34,8 @@ pkglist=(\
  openssl-devel\
  pixman-devel\
  sysstat\
+ meson\
+ ninja-build\
 )
 
 # Tools
@@ -60,6 +62,7 @@ pkglist=(
 pkglist=(
  "${pkglist[@]}"\
  python-six\
+ python3-pyelftools\
 )
 
 # install RHEL compatible epel for sshpass
