@@ -47,6 +47,8 @@ pciutils
 cifs-utils
 sysstat
 sshpass
+meson
+ninja-build
 
 # libs
 libpcap-devel
@@ -79,6 +81,7 @@ yum -y install $(echo "
 rh-python36
 rh-python36-python-tkinter
 python3-setuptools
+python3-pyelftools
 git-review
 " | grep -v ^#)
 # prevent ovs vanilla from building from source due to kernel incompatibilities

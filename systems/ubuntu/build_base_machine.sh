@@ -31,6 +31,9 @@ apt-get -y install libssl1.0.0
 apt-get -y install libxml2
 apt-get -y install zlib1g-dev
 apt-get -y install scapy
+apt-get -y install meson
+apt-get -y install ninja-build
+apt-get -y install python3-pyelftools
 
 # Linux Kernel Source
 apt-get -y install linux-source

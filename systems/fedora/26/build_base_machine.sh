@@ -34,6 +34,8 @@ pixman-devel
 openssl-devel
 redhat-rpm-config
 elfutils-libelf-devel
+meson
+ninja-build
 
 # tools
 curl
@@ -63,6 +65,7 @@ python3-libs
 libreport-python3
 abrt-python3
 abrt-addon-python3
+python3-pyelftools
 
 # libs
 numactl
