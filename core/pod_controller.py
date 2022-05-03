@@ -1,4 +1,4 @@
-# Copyright 2020 Spirent Communications
+# Copyright 2022 Spirent Communications, The Linux Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,12 +44,14 @@ class PodController():
         self._pod_class = pod_class
         self._deployment = deployment.lower()
         self._pods = []
-        if 'pcp' in self._deployment:
+        single_pods = ['pcp', 'c2c']
+        two_pods = ['pccp', 'c2c2c']
+        if any(item in self._deployment for item in single_pods):
             pod_number = 1
-        elif 'pccp'in self._deployment:
+        elif any(item in self._deployment for item in two_pods):
             pod_number = 2
         print("POD COUNTING DONE")
-        settings.setValue('POD_COUNT', pod_number)        
+        settings.setValue('POD_COUNT', pod_number)
         # we will have single controller for all pods
         if pod_number:
             self._pods.append(pod_class())
