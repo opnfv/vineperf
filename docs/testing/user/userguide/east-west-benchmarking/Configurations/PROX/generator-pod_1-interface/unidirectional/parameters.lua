@@ -1,0 +1,11 @@
+require "helper"
+name="Generator"
+local_ip1="192.168.30.11/24"
+local_hex_ip1=convertIPToHex(local_ip1)
+eal="--socket-mem=256,0 --vdev=net_memif0,socket=/usrspcni/memif-8449692251a6-net1.sock,role=slave"
+mcore="14"
+local_hex_mac1="de ad c3 52 79 9b"
+gencores1="15"
+latcores1="16"
+bucket_size_exp="11"
+heartbeat="60"

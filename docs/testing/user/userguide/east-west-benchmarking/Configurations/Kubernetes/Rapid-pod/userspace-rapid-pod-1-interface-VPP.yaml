@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: userspace-rapid-pod-t1-p1
+  annotations:
+    k8s.v1.cni.cncf.io/networks: userspace-vpp-net
+spec:
+  containers:
+  - name: vpp-vhost
+    image: opnfv/rapid:latest
+    imagePullPolicy: Never
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /etc/podnetinfo
+      name: podinfo
+      readOnly: false
+    - mountPath: /usrspcni/
+      name: shared-dir
+    - mountPath: /opt/prox/
+      name: prox-dir
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources:
+      requests:
+        cpu: "6000m"
+        memory: "4000Mi"
+        hugepages-1Gi: 4Gi
+      limits:
+        cpu: "6000m"
+        memory: "4000Mi"
+        hugepages-1Gi: 4Gi
+  nodeSelector:
+    vswitch: ovs
+  volumes:
+  - name: podinfo
+    downwardAPI:
+      items:
+        - path: "labels"
+          fieldRef:
+            fieldPath: metadata.labels
+        - path: "annotations"
+          fieldRef:
+            fieldPath: metadata.annotations
+  - name: shared-dir
+    hostPath:
+      path: /var/lib/cni/usrspcni/data/
+  - name: prox-dir
+    hostPath:
+      path: /opt/prox/
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
