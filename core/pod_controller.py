@@ -44,9 +44,11 @@ class PodController():
         self._pod_class = pod_class
         self._deployment = deployment.lower()
         self._pods = []
-        if 'pcp' in self._deployment:
+        single_pods = ['pcp', 'c2c']
+        two_pods = ['pccp', 'c2c2c']
+        if any(item in self._deployment for item in single_pods):
             pod_number = 1
-        elif 'pccp'in self._deployment:
+        elif any(item in self._deployment for item in two_pods):
             pod_number = 2
         print("POD COUNTING DONE")
         settings.setValue('POD_COUNT', pod_number)        

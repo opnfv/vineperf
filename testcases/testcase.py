@@ -640,19 +640,28 @@ class TestCase(object):
         if S.getValue('K8S') and 'sriov' not in S.getValue('PLUGIN'):
             if 'Ovs' in S.getValue('VSWITCH'):
                 # Add OVS Flows
-                logging.info("Kubernetes: Adding OVS Connections")
-                flow = {'table':'0', 'in_port':'1',
-                        'idle_timeout':'0', 'actions': ['output:3']}
-                vswitch.add_flow(bridge, flow)
-                flow = {'table':'0', 'in_port':'3',
-                        'idle_timeout':'0', 'actions': ['output:1']}
-                vswitch.add_flow(bridge, flow)
-                flow = {'table':'0', 'in_port':'2',
-                        'idle_timeout':'0', 'actions': ['output:4']}
-                vswitch.add_flow(bridge, flow)
-                flow = {'table':'0', 'in_port':'4',
-                        'idle_timeout':'0', 'actions': ['output:2']}
-                vswitch.add_flow(bridge, flow)
+                if S.getValue('USCNI_INTERFACE_PAIRS') == 1:
+                    logging.info("Kubernetes: Adding 1-Pair OVS Connections")
+                    flow = {'table':'0', 'in_port':'1',
+                            'idle_timeout':'0', 'actions': ['output:2']}
+                    vswitch.add_flow(bridge, flow)
+                    flow = {'table':'0', 'in_port':'2',
+                            'idle_timeout':'0', 'actions': ['output:1']}
+                    vswitch.add_flow(bridge, flow)
+                elif S.getValue('USCNI_INTERFACE_PAIRS') == 2:
+                    logging.info("Kubernetes: Adding 2-Pairs OVS Connections")
+                    flow = {'table':'0', 'in_port':'1',
+                            'idle_timeout':'0', 'actions': ['output:3']}
+                    vswitch.add_flow(bridge, flow)
+                    flow = {'table':'0', 'in_port':'3',
+                            'idle_timeout':'0', 'actions': ['output:1']}
+                    vswitch.add_flow(bridge, flow)
+                    flow = {'table':'0', 'in_port':'2',
+                            'idle_timeout':'0', 'actions': ['output:4']}
+                    vswitch.add_flow(bridge, flow)
+                    flow = {'table':'0', 'in_port':'4',
+                            'idle_timeout':'0', 'actions': ['output:2']}
+                    vswitch.add_flow(bridge, flow)
             elif 'vpp' in S.getValue('VSWITCH'):
                 phy_ports = vswitch.get_ports()
                 virt_port0 = 'memif1/0'
