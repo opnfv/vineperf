@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf49881e_ce009d4b",
+        "filename": "tools/k8s/load-generator/config.zpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-05-11T17:18:36Z",
+      "side": 1,
+      "message": "Need the Apache 2.0 text here, I think.",
+      "revId": "fb80e32f181649375b2bce9dc6077de23dda8d9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
