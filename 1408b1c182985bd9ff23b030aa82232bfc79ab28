@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fd82ea5_05ec8190",
+        "filename": "src/dpdk/Makefile.dpdk_meson",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-05-11T17:26:24Z",
+      "side": 1,
+      "message": "s/OPNFV/Anuket/",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 27
+      },
+      "revId": "1408b1c182985bd9ff23b030aa82232bfc79ab28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e6f4af_20a24a75",
+        "filename": "src/dpdk/Makefile.dpdk_meson",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-05-11T17:26:24Z",
+      "side": 1,
+      "message": "Add Sridhar",
+      "revId": "1408b1c182985bd9ff23b030aa82232bfc79ab28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2fb3d26_76a2d098",
+        "filename": "src/ovs/Makefile.ovs_dpdk_meson",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-05-11T17:26:24Z",
+      "side": 1,
+      "message": "2022 Anuket",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "1408b1c182985bd9ff23b030aa82232bfc79ab28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
