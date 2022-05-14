@@ -50,6 +50,8 @@ sysstat
 java-1_8_0-openjdk
 git-review
 mlocate
+meson
+ninja-build
 
 # python
 python3
@@ -59,6 +61,7 @@ python3-setuptools
 python3-devel
 python3-tk
 python3-virtualenv
+python3-pyelftools
 
 # libraries
 libnuma1

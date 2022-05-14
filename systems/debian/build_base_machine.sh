@@ -27,6 +27,9 @@ apt-get -y install curl
 apt-get -y install git
 apt-get -y install wget
 apt-get -y install python3-venv
+apt-get -y install python3-pyelftools
+apt-get -y install meson
+apt-get -y install ninja-build
 
 # Make and Compilers
 apt-get -y install make
