@@ -3,6 +3,36 @@
 .. (c) OPNFV, Intel Corporation, Spirent Communications, AT&T and others.
 
 
+Anuket Moselle Release
+======================
+
+* Supported Software Versions - DPDK:20.05, OVS:2.14.0, VPP:21.01, QEMU:3.1.1, Trex:2.86, PROX:Kali
+
+* Traffic Generator
+
+    * T-Rex bug-fix.
+
+* Kubernetes
+
+    * Support of East-West Traffic Performance Benchmarking.
+        
+        * Dockerfiles for traffic-generators, and traffic forwarders.
+        * Pod deployment files.
+        * Example configurations - traffic generator, forwarder, and client.
+        * Detailed documentation.
+
+* Tools
+
+    * Stressor Tool for kubernetes environment is added.
+    * Cloud Information collection tool is added.
+
+* Miscellaneous
+
+    * For newer version of DPDK (based on meson build) and corresponding OVS version, OS-specific
+      installations and separate makefiles are added.
+    * Qemu Build fix.
+
+
 Anuket Lakelse Release
 ======================
 
