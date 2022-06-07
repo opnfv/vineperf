@@ -37,6 +37,7 @@ force_make: $(WORK_DIR)/Makefile
 	# another option is to copy all required VPP dependencies into VSPERF
 	# installation files and keep them updated
 	$(AT)$(MAKE) -C $(WORK_DIR) UNATTENDED=y install-dep
+	$(AT)$(MAKE) -C $(WORK_DIR) UNATTENDED=y install-ext-deps
 	$(AT)$(MAKE) -C $(WORK_DIR) build-release $(MORE_MAKE_FLAGS)
 	# vppctl expects that vpp_api_test is installed in system directories
 	# in order to execute vppctl from src/ subtree we have to use absolute path
