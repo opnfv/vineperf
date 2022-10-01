@@ -1,7 +1,7 @@
 # makefile to manage ovs package
 #
 
-# Copyright 2015 OPNFV
+# Copyright 2022 Anuket
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 #
 # Contributors:
 #   Aihua Li, Huawei Technologies.
+#   Sridhar Rao, The Linux Foundation
 
 include ../mk/master.mk
 include ../package-list.mk
@@ -48,10 +49,16 @@ ifeq ($(DPDK_DIR),)
 DPDK_DIR = ../../dpdk/dpdk
 endif
 
-ifeq ($(DPDK_TARGET),)
-DPDK_TARGET = x86_64-native-linuxapp-gcc
-endif
-CONFIG_CMD += --with-dpdk=$(DPDK_DIR)/$(DPDK_TARGET)
+DPDK_LIB = $(DPDK_DIR)/build/lib/x86_64-linux-gnu
+LD_CONFIG_PATH := $(DPDK_LIB)/:$(LD_CONFIG_PATH)
+PKG_CONFIG_PATH := $(DPDK_LIB)/pkgconfig/:$(PKG_CONFIG_PATH)
+
+export LD_CONFIG_PATH
+export PKG_CONFIG_PATH
+
+# echo $$ENV{LD_CONFIG_PATH}
+
+CONFIG_CMD += --with-dpdk=shared
 CONFIG_CMD += CFLAGS="-g -O2 -Wno-cast-align"
 
 endif # Kernel vs. DPDK
@@ -65,7 +72,7 @@ all: force_make
 	@echo "Finished making $(WORK_DIR) "
 
 config $(WORK_DIR)/Makefile: $(WORK_DIR)/configure
-	$(AT)cd $(WORK_DIR); $(CONFIG_CMD)
+	$(AT)cd $(WORK_DIR); LD_LIBRARY_PATH=$(DPDK_LIB) PKG_CONFIG_PATH=$(DPDK_LIB)/pkgconfig/ $(CONFIG_CMD)
 	@echo "Configure done"
 
 INSTALL_TARGET = force_install force_make
