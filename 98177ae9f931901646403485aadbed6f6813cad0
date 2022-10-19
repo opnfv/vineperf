@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c128312_63145874",
+        "filename": "src/ovs/Makefile.legacy",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-10-19T14:54:49Z",
+      "side": 1,
+      "message": "DId we really go back to the 2015 version in the .legacy file???",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "98177ae9f931901646403485aadbed6f6813cad0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
