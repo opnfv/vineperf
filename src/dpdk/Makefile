@@ -1,7 +1,7 @@
 # makefile to manage dpdk package
 #
 
-# Copyright 2015-2016 OPNFV
+# Copyright 2022 Anuket
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #   Aihua Li, Huawei Technologies.
 #   Martin Klozik, Intel Corporation.
 #   Christian Trautman, Red Hat Inc.
+#   Sridhar Rao, The Linux Foundation.
 
 include ../mk/master.mk
 include ../package-list.mk
@@ -33,73 +34,17 @@ endif
 WORK_DIR = dpdk
 TAG_DONE_FLAG = $(WORK_DIR)/.$(DPDK_TAG).tag.done
 
-# VHOST configuration options are stored in different files based on DPDK version
-# v1.2.3r0-v1.6.0r2 - configuration inside config/defconfig_x86_64-default-linuxapp-gcc
-# v1.7.0-rc1-v2.2.0 - configuration inside config/common_linuxapp
-# v16 and newer - configuration split between config/common_linuxapp and config/common_base
-DPDK_TAG_MAJOR = $(shell echo $(DPDK_TAG) | cut -d. -f1)
-DPDK_TAG_MINOR = $(shell echo $(DPDK_TAG) | cut -d. -f2)
-ifeq ($(DPDK_TAG_MAJOR),v1)
-ifeq ($(DPDK_TAG_MINOR), $(filter $(DPDK_TAG_MINOR), 7 8))
-    DPDK_TARGET = x86_64-native-linuxapp-gcc
-    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/common_linuxapp
-else
-    DPDK_TARGET = x86_64-default-linuxapp-gcc
-    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/defconfig_x86_64-default-linuxapp-gcc
-endif
-else
-ifeq ($(DPDK_TAG_MAJOR),v2)
-    DPDK_TARGET = x86_64-native-linuxapp-gcc
-    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/common_linuxapp
-else
-    DPDK_TARGET = x86_64-native-linuxapp-gcc
-    CONFIG_FILE_BASE = $(WORK_DIR)/config/common_base
-    CONFIG_FILE_LINUXAPP = $(WORK_DIR)/config/common_linux
-endif
-endif
-
 all: force_make
 	@echo "Finished making $(WORK_DIR) "
 
 INSTALL_TARGET = force_make
 
-# modify CONFIG_FILE to enable VHOST_USER build and restore original CONFIG_FILE after the build
-# DPDK v16 comments:
-## CONFIG_RTE_BUILD_COMBINE_LIBS has been obsoleted
-## CONFIG_RTE_LIBRTE_VHOST and CONFIG_RTE_LIBRTE_KNI are listed in both config_base and config_linuxapp,
-## values from config_linuxapp will be used, but options are modified at both places to avoid confusion.
 force_make: $(TAG_DONE_FLAG)
 	$(AT)cd $(WORK_DIR) && git pull $(DPDK_URL) $(DPDK_TAG)
-ifdef CONFIG_FILE_BASE
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_VHOST_USER=.\+/CONFIG_RTE_LIBRTE_VHOST_USER=$(VHOST_USER)/g' $(CONFIG_FILE_BASE)
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_VHOST=./CONFIG_RTE_LIBRTE_VHOST=y/g' $(CONFIG_FILE_BASE)
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_KNI=./CONFIG_RTE_LIBRTE_KNI=n/g' $(CONFIG_FILE_BASE)
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_VHOST_NUMA=./CONFIG_RTE_LIBRTE_VHOST_NUMA=y/g' $(CONFIG_FILE_BASE)
-	$(AT)sed -i -e 's/CONFIG_RTE_EAL_IGB_UIO=./CONFIG_RTE_EAL_IGB_UIO=y/g' $(CONFIG_FILE_BASE)
-else
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_VHOST_USER=.\+/CONFIG_RTE_LIBRTE_VHOST_USER=$(VHOST_USER)/g' $(CONFIG_FILE_LINUXAPP)
-	$(AT)sed -i -e 's/CONFIG_RTE_BUILD_COMBINE_LIBS=./CONFIG_RTE_BUILD_COMBINE_LIBS=y/g' $(CONFIG_FILE_LINUXAPP)
-endif
-# CentOS 7.3 specific config changes to compile
-ifeq ($(ID),"centos")
-ifeq ($(VERSION_ID),"7")
-	$(AT)sed -i.bak s@'SRCS-y += ethtool/igb/igb_main.c'@'#SRCS-y += ethtool/igb/igb_main.c'@g $(WORK_DIR)/kernel/linux/kni/Makefile
-endif
-endif
-# RHEL 7.3 specific config changes to compile
-ifeq ($(ID),"rhel")
-ifeq ($(VERSION_ID),"7.3")
-	$(AT)sed -i.bak s@'SRCS-y += ethtool/igb/igb_main.c'@'#SRCS-y += ethtool/igb/igb_main.c'@g $(WORK_DIR)/kernel/linux/kni/Makefile
-endif
-endif
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_VHOST=./CONFIG_RTE_LIBRTE_VHOST=y/g' $(CONFIG_FILE_LINUXAPP)
-	$(AT)sed -i -e 's/CONFIG_RTE_LIBRTE_KNI=./CONFIG_RTE_LIBRTE_KNI=n/g' $(CONFIG_FILE_LINUXAPP)
-	$(AT)cd $(WORK_DIR); make install T=$(DPDK_TARGET) -j DESTDIR=$(WORK_DIR)
-	$(AT)cd `dirname $(CONFIG_FILE_LINUXAPP)` && git checkout `basename $(CONFIG_FILE_LINUXAPP)` && cd -
-ifdef CONFIG_FILE_BASE
-	$(AT)cd `dirname $(CONFIG_FILE_BASE)` && git checkout `basename $(CONFIG_FILE_BASE)` && cd -
-endif
-	$(AT)echo "VHOST_USER = $(VHOST_USER)"
+	$(AT)cd $(WORK_DIR) && meson --prefix=$(CURDIR)/dpdk/build -Dtests=false build
+	$(AT)cd $(WORK_DIR) && ninja -C build
+	$(AT)cd $(WORK_DIR) && ninja -C build install
+	$(AT)cd $(WORK_DIR) && cd build && meson configure -Denable_kmods=true && ninja
 	@echo "Make done"
 
 install: $(INSTALL_TARGET)

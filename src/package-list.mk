@@ -13,11 +13,11 @@
 # dpdk section
 # DPDK_URL ?= git://dpdk.org/dpdk
 DPDK_URL ?= http://dpdk.org/git/dpdk
-DPDK_TAG ?= v20.05
+DPDK_TAG ?= v21.11
 
 # OVS section
 OVS_URL ?= https://github.com/openvswitch/ovs
-OVS_TAG ?= v2.14.0
+OVS_TAG ?= v2.17.2
 
 # VPP section
 VPP_URL ?= https://git.fd.io/vpp
