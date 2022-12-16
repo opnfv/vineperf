@@ -51,6 +51,10 @@ cifs-utils
 socat
 sysstat
 sshpass
+llvm
+clang
+libbpf-devel
+
 
 # install python packages
 python3-virtualenv
