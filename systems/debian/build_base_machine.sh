@@ -30,6 +30,8 @@ apt-get -y install python3-venv
 apt-get -y install python3-pyelftools
 apt-get -y install meson
 apt-get -y install ninja-build
+apt-get -y install clang
+apt-get -y install llvm
 
 # Make and Compilers
 apt-get -y install make
@@ -40,3 +42,7 @@ apt-get -y install libssl1.1
 apt-get -y install libxml2
 apt-get -y install zlib1g-dev
 apt-get -y install scapy
+apt-get -y install libbpf-dev
+apt-get -y install libelf-dev
+apt-get -y install linux-tools-$(uname -r)
+apt-get -y install linux-cloud-tools-$(uname -r)
