@@ -1,0 +1,276 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0
+# This is not an autoconf generated configure
+#
+# Influential environment variables:
+#   LIBBPF_DIR  Location of libbpf install to use
+#   KVER        Specify a specific kernel version to build programs
+#   KSRC        Location of kernel headers (e.g., source tree)
+#   KBLD        Location of kernel build files (e.g., O= directory)
+
+# Output file which is input to Makefile
+CONFIG_FINAL=config.mk
+CONFIG=".${CONFIG}.tmp"
+
+# Make a temp directory in build tree.
+TMPDIR=$(mktemp -d config.XXXXXX)
+trap 'status=$?; rm -rf $TMPDIR; rm -f $CONFIG; exit $status' EXIT HUP INT QUIT TERM
+
+check_toolchain()
+{
+    : ${PKG_CONFIG:=pkg-config}
+    : ${CC=gcc}
+    : ${CLANG=clang}
+    : ${LLC=llc}
+
+    for TOOL in $PKG_CONFIG $CC $CLANG $LLC; do
+        if [ ! $(command -v ${TOOL} 2>/dev/null) ]; then
+            echo "*** ERROR: Cannot find tool ${TOOL}" ;
+            exit 1;
+        fi;
+    done
+
+    echo "PKG_CONFIG:=${PKG_CONFIG}" >>$CONFIG
+    echo "CC:=${CC}" >>$CONFIG
+    echo "CLANG:=${CLANG}" >>$CONFIG
+    echo "LLC:=${LLC}" >>$CONFIG
+}
+
+check_elf()
+{
+    if ${PKG_CONFIG} libelf --exists; then
+        echo "HAVE_ELF:=y" >>$CONFIG
+        echo "yes"
+
+        echo 'CFLAGS += -DHAVE_ELF' `${PKG_CONFIG} libelf --cflags` >> $CONFIG
+        LDLIBS="$LDLIBS $(${PKG_CONFIG} libelf --libs)"
+    else
+        echo "missing - this is required"
+        return 1
+    fi
+}
+
+check_zlib()
+{
+    if ${PKG_CONFIG} zlib --exists; then
+        echo "HAVE_ZLIB:=y" >>$CONFIG
+        echo "yes"
+
+        echo 'CFLAGS += -DHAVE_ZLIB' `${PKG_CONFIG} zlib --cflags` >> $CONFIG
+        LDLIBS="$LDLIBS $(${PKG_CONFIG} zlib --libs)"
+    else
+        echo "missing - this is required"
+        return 1
+    fi
+}
+
+libbpf_compile_test()
+{
+	local libs="$*"
+
+        cat >$TMPDIR/libbpftest.c <<EOF
+#include <bpf/libbpf.h>
+int main(int argc, char **argv) {
+    void *ptr;
+    DECLARE_LIBBPF_OPTS(bpf_object_open_opts, opts, .pin_root_path = "/path");
+    DECLARE_LIBBPF_OPTS(bpf_xdp_set_link_opts, lopts, .old_fd = -1);
+    (void) bpf_object__open_file("file", &opts);
+    (void) bpf_program__name(ptr);
+    (void) bpf_map__set_initial_value(ptr, ptr, 0);
+    (void) bpf_set_link_xdp_fd_opts(0, 0, 0, &lopts);
+    return 0;
+}
+EOF
+
+        libbpf_err=$($CC -o $TMPDIR/libbpftest $TMPDIR/libbpftest.c  $LIBBPF_CFLAGS $LIBBPF_LDLIBS $libs 2>&1)
+}
+
+check_custom_libbpf()
+{
+    LIBBPF_CFLAGS="-I${LIBBPF_DIR}/usr/include"
+    LIBBPF_LDLIBS="$(find ${LIBBPF_DIR} -name libbpf.a)"
+
+    echo -n "ELF support: "
+    check_elf || exit 1
+
+    echo -n "zlib support: "
+    check_zlib || exit 1
+
+    libbpf_compile_test "${LDLIBS}"
+    if [ "$?" -eq "0" ]; then
+        echo "LIBBPF_DIR=${LIBBPF_DIR}" >> $CONFIG
+        echo "CFLAGS += $LIBBPF_CFLAGS" >> $CONFIG
+        echo "LDLIBS += $LIBBPF_LDLIBS $LDLIBS" >> $CONFIG
+
+        echo "libbpf support: custom install"
+        return 0
+    fi
+
+    echo "libbpf support: invalid custom install"
+    return 1
+}
+
+check_libbpf()
+{
+    local libbpf_err
+
+    if [ -n "$LIBBPF_DIR" ]; then
+	    check_custom_libbpf
+	    return $?
+    fi
+
+    echo -n "libbpf support: "
+    if [ "${FORCE_SUBMODULE_LIBBPF:-0}" -ne "1" ] && ${PKG_CONFIG} libbpf --exists; then
+        LIBBPF_CFLAGS=$(${PKG_CONFIG} libbpf --cflags)
+        LIBBPF_LDLIBS=$(${PKG_CONFIG} libbpf --libs)
+
+        libbpf_compile_test
+        if [ "$?" -eq "0" ]; then
+            echo "SYSTEM_LIBBPF:=y" >>$CONFIG
+            echo 'CFLAGS += ' $LIBBPF_CFLAGS >> $CONFIG
+            echo 'LDLIBS += ' $LIBBPF_LDLIBS >>$CONFIG
+            echo 'OBJECT_LIBBPF = ' >>$CONFIG
+            echo system
+
+            return 0
+        fi
+    else
+        libbpf_err="${PKG_CONFIG} couldn't find libbpf"
+    fi
+
+    if [ "${FORCE_SYSTEM_LIBBPF:-0}" -eq "1" ]; then
+        echo "FORCE_SYSTEM_LIBBPF is set, but no usable libbpf found on system"
+        echo "error: $libbpf_err"
+        rm -f "$CONFIG"
+        exit 1
+    fi
+
+    echo submodule
+    echo "SYSTEM_LIBBPF:=n" >> $CONFIG
+    echo 'CFLAGS += -I$(LIB_DIR)/libbpf-install/usr/include' >>$CONFIG
+    echo 'BPF_CFLAGS += -I$(LIB_DIR)/libbpf-install/usr/include' >>$CONFIG
+    echo 'LDFLAGS += -L$(LIB_DIR)/libbpf/src' >>$CONFIG
+    echo 'LDLIBS += -l:libbpf.a' >>$CONFIG
+    echo 'OBJECT_LIBBPF = $(LIB_DIR)/libbpf/src/libbpf.a' >>$CONFIG
+    if ! [ -d "lib/libbpf/src" ] && [ -f ".gitmodules" ] && [ -e ".git" ]; then
+        git submodule init && git submodule update
+    fi
+
+    echo -n "ELF support: "
+    check_elf || exit 1
+
+    echo -n "zlib support: "
+    check_zlib || exit 1
+
+    echo "LDLIBS += $LDLIBS" >>$CONFIG
+
+    # For the build submodule library we know it does support this API, so we
+    # hard code it. Also due to the fact it's hard to build a test app as
+    # libbpf.a has not been build at configure time.
+    echo "HAVE_LIBBPF_PERF_BUFFER__CONSUME:=y" >>"$CONFIG"
+}
+
+find_kernel_path()
+{
+	local ksrc
+	local kbld
+
+	: ${KVER:=$(uname -r)}
+
+	if [ "${KSRC}" != "" ]; then
+		ksrc="${KSRC}"
+	# Fedora, Redhat and custom kernels
+	elif [ -e /lib/modules/${KVER}/source ]; then
+		ksrc="/lib/modules/${KVER}/source"
+	# Ubuntu, Debian
+	elif [ -e /usr/src/linux-headers-${KVER} ]; then
+		ksrc="/usr/src/linux-headers-${KVER}"
+	else
+		echo "Failed to find kernel source directory" >&2
+		return 1
+	fi
+
+	if [ "${KBLD}" != "" ]; then
+		kbld="${KBLD}"
+	elif [ -e /lib/modules/${KVER}/build ]; then
+		kbld="/lib/modules/${KVER}/build"
+	else
+		echo "Failed to find kernel build directory" >&2
+		return 1
+	fi
+	echo "KSRC=${ksrc}" >> "$CONFIG"
+	echo "KBLD=${kbld}" >> "$CONFIG"
+}
+
+quiet_config()
+{
+    cat <<EOF
+# user can control verbosity similar to kernel builds (e.g., V=1)
+ifeq ("\$(origin V)", "command line")
+  VERBOSE = \$(V)
+endif
+ifndef VERBOSE
+  VERBOSE = 0
+endif
+ifeq (\$(VERBOSE),1)
+  Q =
+else
+  Q = @
+endif
+ifeq (\$(VERBOSE),0)
+MAKEFLAGS += --no-print-directory
+endif
+
+
+ifeq (\$(VERBOSE), 0)
+    QUIET_CC       = @echo '    CC       '\$@;
+    QUIET_CLANG    = @echo '    CLANG    '\$@;
+    QUIET_LLC      = @echo '    LLC      '\$@;
+    QUIET_LINK     = @echo '    LINK     '\$@;
+    QUIET_INSTALL  = @echo '    INSTALL  '\$@;
+    QUIET_GEN      = @echo '    GEN      '\$@;
+endif
+EOF
+}
+
+################################################################################
+# show help
+
+usage()
+{
+	cat <<EOF
+Usage: $0 OPTS
+
+OPTS:
+    -l LIBBPF  Path to libbpf install (if not using system version)
+
+    -k KVER    Kernel version to build against (default: $(uname -r))
+    -s KSRC    Location of kernel source
+    -b KBLD    Location of kernel build directory
+EOF
+}
+
+################################################################################
+# main
+
+while getopts :l:k:s:b: o
+do
+	case "$o" in
+	l) LIBBPF_DIR="$OPTARG";;
+	k) KVER="$OPTARG";;
+	s) KSRC="$OPTARG";;
+	b) KBLD="$OPTARG";;
+	*) usage; exit 1;;
+	esac
+done
+
+echo "# Generated config" >$CONFIG
+quiet_config >> $CONFIG
+
+check_toolchain
+
+check_libbpf || exit 1
+
+find_kernel_path || exit 1
+
+mv $CONFIG $CONFIG_FINAL
