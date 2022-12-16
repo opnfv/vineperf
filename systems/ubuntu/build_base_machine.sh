@@ -34,6 +34,8 @@ apt-get -y install scapy
 apt-get -y install meson
 apt-get -y install ninja-build
 apt-get -y install python3-pyelftools
+apt-get -y install clang
+apt-get -y install llvm
 
 # Linux Kernel Source
 apt-get -y install linux-source
@@ -50,6 +52,10 @@ apt-get -y install libfuse-dev
 apt-get -y install libnuma1
 apt-get -y install libnuma-dev
 apt-get -y install sshpass
+apt-get -y install libelf-dev
+apt-get -y install libbpf-dev
+apt-get -y install linux-tools-$(uname -r)
+apt-get -y install linux-cloud-tools-$(uname -r)
 
 # Some useful tools you may optionally install
 #apt-get -y install ctags

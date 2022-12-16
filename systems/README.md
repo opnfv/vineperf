@@ -39,4 +39,31 @@ May need following changes:
     DPDK_LIB = $(DPDK_DIR)/build/lib64
 ```
 
-   
+eBPF 
+----
+
+Adding eBPF support may require additional installations. The installation
+script already includes tools like llvm, clang, libbpf-dev, etc.
+For some programs, you may have to build kernel by downloading the source.
+In the folder where you have kernel source, run:
+```
+make oldconfig && make prepare && make headers_install && make
+```
+While building any program, if you encounter an error with bpf.h in
+include/linux/ folder, get the latest of bcc from iovisor project,
+using following commands
+
+```
+apt purge bpfcc-tools libbpfcc python3-bpfcc
+wget https://github.com/iovisor/bcc/releases/download/v0.25.0/bcc-src-with-submodule.tar.gz
+tar xf bcc-src-with-submodule.tar.gz
+cd bcc/
+apt install -y python-is-python3
+apt install -y bison build-essential cmake flex git libedit-dev   libllvm11 llvm-11-dev libclang-11-dev zlib1g-dev libelf-dev libfl-dev python3-distutils
+apt install -y checkinstall
+mkdir build
+cd build/
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DPYTHON_CMD=python3 ..
+make
+checkinstall
+```   
