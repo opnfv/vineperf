@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fdb5f9f_316cdace",
+        "filename": "src/bpfswitch/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-12-19T13:33:26Z",
+      "side": 1,
+      "message": "needs a license header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "9f023269274c23d8233d307c01a3b4442507bff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9567e988_a495a206",
+        "filename": "src/bpfswitch/scripts/l2fwd.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 385
+      },
+      "writtenOn": "2022-12-19T13:33:26Z",
+      "side": 1,
+      "message": "needs license header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "9f023269274c23d8233d307c01a3b4442507bff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
