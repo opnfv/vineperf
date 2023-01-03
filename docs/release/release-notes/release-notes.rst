@@ -3,6 +3,31 @@
 .. (c) OPNFV, Intel Corporation, Spirent Communications, AT&T and others.
 
 
+Anuket Nile Release
+===================
+
+* Supported Software Versions - DPDK:21.11, OVS:2.17.2, VPP:21.01, QEMU:3.1.1, Trex:2.86, PROX:Kali
+
+* Source
+
+    * BPF-Switch: Based on https://github.com/dsahern/bpf-progs
+
+* Kubernetes
+
+    * Support for XDP-based networking
+        
+        * Dockerfiles for af_xdp.
+        * Pod deployment files, network attachment definitions
+        * Example configurations - daemonset
+        * Detailed documentation.
+
+* Miscellaneous
+
+    * Support for Ubuntu 22.04 is included
+    * Additional packages are included in the installation process - eBPF related packages.
+    * DPDK build based on meson is the default approach.
+    * Read the documentation in systems folder before initiating the build.
+
 Anuket Moselle Release
 ======================
 
