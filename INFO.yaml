@@ -25,11 +25,13 @@ realtime_discussion:
 meetings:
     - type: 'gotomeeting+irc'
       agenda:  # eg: 'https://wiki.opnfv.org/display/'
-      url:  https://zoom.us/j/2362828999  # eg: 'https://global.gotomeeting.com/join/819733085'
+      # yamllint disable rule:line-length
+      url: https://zoom.us/j/2362828999  # eg: 'https://global.gotomeeting.com/join/819733085'
+      # yamllint enable rule:line-length
       server: 'freenode.net'
       channel: '#opnfv-meeting'
       repeats: 'weekly'
-      time: '09:00 US-ET' # eg: '15:00 UTC'
+      time: '09:00 US-ET'  # eg: '15:00 UTC'
 repositories:
     - 'vineperf'
 committers:
