@@ -20,6 +20,7 @@ Openstack Client - Main File
 import os_client_config
 from oslo_log import log as logging
 from oslo_utils import importutils
+from openstack import connection
 
 LOG = logging.getLogger(__name__)
 
